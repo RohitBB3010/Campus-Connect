@@ -19,6 +19,12 @@ class SpacingConsts {
     );
   }
 
+  SizedBox customHeightBetweenFields(BuildContext context, double height) {
+    return SizedBox(
+      height: MediaQuery.of(context).size.height * height,
+    );
+  }
+
   SizedBox smallWidthBetweenFields(BuildContext context) {
     return SizedBox(
       width: MediaQuery.of(context).size.width * 0.01,
@@ -34,6 +40,12 @@ class SpacingConsts {
   SizedBox largeWidthBetweenFields(BuildContext context) {
     return SizedBox(
       width: MediaQuery.of(context).size.width * 0.1,
+    );
+  }
+
+  SizedBox customWidthBetweenFields(BuildContext context, double width) {
+    return SizedBox(
+      width: MediaQuery.of(context).size.width * width,
     );
   }
 }

@@ -2,7 +2,9 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:campus_connecy/components/custom_button.dart';
 import 'package:campus_connecy/constants/colors.dart';
 import 'package:campus_connecy/constants/spacingConsts.dart';
+import 'package:campus_connecy/constants/string_constants.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 class SelectPage extends StatelessWidget {
   const SelectPage({super.key});
@@ -55,8 +57,24 @@ class SelectPage extends StatelessWidget {
                           style:
                               TextStyle(fontFamily: "Futura", fontSize: 40.0),
                         ),
+                        SpacingConsts()
+                            .customHeightBetweenFields(context, 0.03),
+                        CustomButton(
+                          buttonHeight: 0.07,
+                          buttonText: AuthStrings().committeeAuth,
+                        ),
                         SpacingConsts().smallHeightBetweenFields(context),
-                        CustomButton()
+                        const AutoSizeText(
+                          'Or',
+                          style:
+                              TextStyle(fontFamily: 'Futura', fontSize: 30.0),
+                        ),
+                        SpacingConsts().smallHeightBetweenFields(context),
+                        CustomButton(
+                          color: primary1,
+                          buttonText: AuthStrings().studentAuth,
+                          buttonHeight: 0.07,
+                        )
                       ],
                     ),
                   ),

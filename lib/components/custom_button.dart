@@ -4,9 +4,18 @@ import 'package:campus_connecy/constants/string_constants.dart';
 import 'package:flutter/material.dart';
 
 class CustomButton extends StatelessWidget {
-  CustomButton({super.key, this.buttonWidth, this.buttonHeight});
-  double? buttonWidth;
-  double? buttonHeight;
+  CustomButton(
+      {super.key,
+      this.buttonWidth,
+      this.buttonHeight,
+      this.color,
+      this.onPressed,
+      required this.buttonText});
+  final double? buttonWidth;
+  final double? buttonHeight;
+  final Color? color;
+  final VoidCallback? onPressed;
+  final String buttonText;
 
   @override
   Widget build(BuildContext context) {
@@ -18,13 +27,20 @@ class CustomButton extends StatelessWidget {
           ? MediaQuery.of(context).size.height * 0.08
           : MediaQuery.of(context).size.height * buttonHeight!,
       child: ElevatedButton(
-        onPressed: () {},
-        style: ElevatedButton.styleFrom(backgroundColor: accent3),
+        onPressed: () {
+          onPressed;
+        },
+        style: ElevatedButton.styleFrom(
+            backgroundColor: color ?? accent3,
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10.0))),
         child: AutoSizeText(
-          AuthStrings().studentAuth,
+          buttonText,
           maxLines: 1,
-          style:
-              TextStyle(fontFamily: 'Futura', color: primary1, fontSize: 25.0),
+          style: TextStyle(
+              fontFamily: 'Futura',
+              color: color == null ? primary1 : secondary3,
+              fontSize: 25.0),
         ),
       ),
     );
