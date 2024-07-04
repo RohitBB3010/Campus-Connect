@@ -9,13 +9,13 @@ class SpacingConsts {
 
   SizedBox mediumHeightBetweenFields(BuildContext context) {
     return SizedBox(
-      height: MediaQuery.of(context).size.height * 0.05,
+      height: MediaQuery.of(context).size.height * 0.03,
     );
   }
 
   SizedBox largeHeightBetweenFields(BuildContext context) {
     return SizedBox(
-      height: MediaQuery.of(context).size.height * 0.1,
+      height: MediaQuery.of(context).size.height * 0.05,
     );
   }
 
@@ -33,13 +33,13 @@ class SpacingConsts {
 
   SizedBox mediumWidthBetweenFields(BuildContext context) {
     return SizedBox(
-      width: MediaQuery.of(context).size.width * 0.05,
+      width: MediaQuery.of(context).size.width * 0.03,
     );
   }
 
   SizedBox largeWidthBetweenFields(BuildContext context) {
     return SizedBox(
-      width: MediaQuery.of(context).size.width * 0.1,
+      width: MediaQuery.of(context).size.width * 0.05,
     );
   }
 
