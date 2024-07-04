@@ -31,9 +31,14 @@ class CustomButton extends StatelessWidget {
           onPressed;
         },
         style: ElevatedButton.styleFrom(
+            elevation: 0,
             backgroundColor: color ?? accent3,
             shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10.0))),
+              side: color != null
+                  ? BorderSide(color: secondary3.withAlpha(150))
+                  : BorderSide.none,
+              borderRadius: BorderRadius.circular(10.0),
+            )),
         child: AutoSizeText(
           buttonText,
           maxLines: 1,
