@@ -14,4 +14,6 @@ class AuthStrings {
       " Committee code is provided by the committee faculty head, please contact them or committee head for the code";
   String selectCommitteeFirst = "Please Select Committee First";
   String incorrectCode = "The code is incorrect";
+  String verifyCode = "Verify Code";
+  String returnToSelectPage = "Return To Select Page";
 }

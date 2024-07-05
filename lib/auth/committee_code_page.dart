@@ -3,6 +3,7 @@ import 'package:campus_connecy/auth/auth_cubit.dart';
 import 'package:campus_connecy/auth/auth_state.dart';
 import 'package:campus_connecy/components/auth_skeleton.dart';
 import 'package:campus_connecy/components/custom_button.dart';
+import 'package:campus_connecy/components/text_button.dart';
 import 'package:campus_connecy/components/text_field.dart';
 import 'package:campus_connecy/constants/colors.dart';
 import 'package:campus_connecy/constants/spacingConsts.dart';
@@ -58,6 +59,7 @@ class CommitteeCodePage extends StatelessWidget {
                 SpacingConsts().mediumHeightBetweenFields(context),
                 CustomTextField(
                     fieldWidth: 0.8,
+                    fieldHeight: 0.07,
                     hintText: 'Enter code',
                     onChanged: context.read<AuthCubit>().codeChanged),
                 SizedBox(
@@ -86,7 +88,7 @@ class CommitteeCodePage extends StatelessWidget {
                       ],
                     )),
                 SpacingConsts().mediumHeightBetweenFields(context),
-                CustomButton(context, "Dum", accent3, () {
+                CustomButton(context, AuthStrings().verifyCode, accent3, () {
                   if (state.selectedCommittee == null) {
                     ScaffoldMessenger.of(context).showSnackBar(
                         buildSnackbar(AuthStrings().selectCommitteeFirst));
@@ -96,7 +98,14 @@ class CommitteeCodePage extends StatelessWidget {
                     ScaffoldMessenger.of(context).showSnackBar(
                         buildSnackbar(AuthStrings().incorrectCode));
                   }
-                }, 0.8, 0.07)
+                }, 0.8, 0.07),
+                SpacingConsts().smallHeightBetweenFields(context),
+                CustomTextButton(
+                    buttonWidth: 0.8,
+                    buttonText: AuthStrings().returnToSelectPage,
+                    onPressed: () {
+                      Navigator.pop(context);
+                    })
               ],
             ),
           );
