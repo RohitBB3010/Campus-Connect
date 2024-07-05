@@ -8,4 +8,5 @@ class AuthStrings {
   String signIn = "Sign In";
   String committeeUsername = "Enter Username";
   String enterPassword = "Enter Password";
+  String selectCommittee = "Select Committee";
 }

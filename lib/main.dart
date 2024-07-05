@@ -18,7 +18,7 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
         home: BlocProvider(
-      create: (context) => AuthCubit(),
+      create: (context) => AuthCubit()..getCommitteesList(),
       child: BlocBuilder<AuthCubit, AuthState>(
         builder: (context, state) {
           if (state is AuthUnAuthenticatedState) {
