@@ -17,4 +17,10 @@ class AuthStrings {
   String verifyCode = "Verify Code";
   String returnToSelectPage = "Return To Select Page";
   String emptyCode = "Please enter code first";
+  String enterEmail = "Enter email";
+  String studentSignUp = "New student? Sign Up Here";
+  String memberSignUp = "New member at the committee? Sign Up here!!";
+  String signUp = "Sign Up";
+  String setPassword = "Set Password";
+  String confirmPassword = "Confirm Password";
 }

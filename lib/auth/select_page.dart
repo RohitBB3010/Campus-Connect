@@ -43,8 +43,11 @@ class SelectPage extends StatelessWidget {
                 SpacingConsts().customHeightBetweenFields(context, 0.03),
                 CustomButton(context, AuthStrings().committeeAuth, accent3, () {
                   context.read<AuthCubit>().resetSelectedCommitteeAndCode();
-                  Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => CommitteeCodePage()));
+                  Navigator.of(context).pushAndRemoveUntil(
+                    MaterialPageRoute(
+                        builder: (context) => const CommitteeCodePage()),
+                    (Route<dynamic> route) => false,
+                  );
                 }, 0.6, 0.08),
                 SpacingConsts().smallHeightBetweenFields(context),
                 const AutoSizeText(
@@ -55,8 +58,11 @@ class SelectPage extends StatelessWidget {
                 ),
                 SpacingConsts().smallHeightBetweenFields(context),
                 CustomButton(context, AuthStrings().studentAuth, primary1, () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => StudentLoginPage()));
+                  Navigator.of(context).pushAndRemoveUntil(
+                    MaterialPageRoute(
+                        builder: (context) => const StudentLoginPage()),
+                    (Route<dynamic> route) => false,
+                  );
                 }, 0.6, 0.08),
               ],
             );

@@ -1,7 +1,5 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:campus_connecy/auth/auth_cubit.dart';
-import 'package:campus_connecy/auth/select_page.dart';
-import 'package:campus_connecy/auth/sign_up_page.dart';
 import 'package:campus_connecy/components/auth_skeleton.dart';
 import 'package:campus_connecy/components/custom_button.dart';
 import 'package:campus_connecy/components/text_button.dart';
@@ -12,8 +10,8 @@ import 'package:campus_connecy/constants/string_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class StudentLoginPage extends StatelessWidget {
-  const StudentLoginPage({super.key});
+class SignUpPage extends StatelessWidget {
+  const SignUpPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -22,40 +20,34 @@ class StudentLoginPage extends StatelessWidget {
         children: [
           SpacingConsts().mediumHeightBetweenFields(context),
           AutoSizeText(
-            AuthStrings().signIn,
+            AuthStrings().signUp,
             maxLines: 1,
             style: const TextStyle(fontSize: 40.0),
-          ),
-          SpacingConsts().largeHeightBetweenFields(context),
-          CustomTextField(
-            fieldWidth: 0.8,
-            hintText: AuthStrings().enterEmail,
-            onChanged: context.read<AuthCubit>().emailChanged,
           ),
           SpacingConsts().mediumHeightBetweenFields(context),
           CustomTextField(
               fieldWidth: 0.8,
-              hintText: AuthStrings().enterPassword,
-              onChanged: context.read<AuthCubit>().paswordChanged),
-          SpacingConsts().largeHeightBetweenFields(context),
-          CustomButton(
-              context, AuthStrings().signIn, accent3, () {}, 0.8, 0.07),
+              hintText: AuthStrings().enterEmail,
+              onChanged: context.read<AuthCubit>().emailChanged),
           SpacingConsts().smallHeightBetweenFields(context),
-          CustomTextButton(
-              buttonWidth: 0.8,
-              buttonText: AuthStrings().studentSignUp,
-              onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => SignUpPage()));
-              }),
+          CustomTextField(
+              fieldWidth: 0.8,
+              hintText: AuthStrings().setPassword,
+              onChanged: context.read<AuthCubit>().paswordChanged),
+          SpacingConsts().smallHeightBetweenFields(context),
+          CustomTextField(
+              fieldWidth: 0.8,
+              hintText: AuthStrings().confirmPassword,
+              onChanged: context.read<AuthCubit>().confirmPasswordChanged),
+          SpacingConsts().mediumHeightBetweenFields(context),
+          CustomButton(
+              context, AuthStrings().signUp, accent3, () {}, 0.8, 0.07),
           SpacingConsts().smallHeightBetweenFields(context),
           CustomTextButton(
               buttonWidth: 0.8,
               buttonText: AuthStrings().returnToSelectPage,
               onPressed: () {
-                Navigator.of(context).pushAndRemoveUntil(
-                    MaterialPageRoute(builder: (context) => SelectPage()),
-                    (Route<dynamic> route) => false);
+                Navigator.pop(context);
               })
         ],
       ),

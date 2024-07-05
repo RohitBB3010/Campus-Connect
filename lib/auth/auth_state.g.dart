@@ -11,6 +11,10 @@ abstract class _$AuthUnAuthenticatedStateCWProxy {
 
   AuthUnAuthenticatedState password(String? password);
 
+  AuthUnAuthenticatedState confirmPassword(String? confirmPassword);
+
+  AuthUnAuthenticatedState isStudent(bool? isStudent);
+
   AuthUnAuthenticatedState selectedCommittee(Committee? selectedCommittee);
 
   AuthUnAuthenticatedState committeeCode(String? committeeCode);
@@ -27,6 +31,8 @@ abstract class _$AuthUnAuthenticatedStateCWProxy {
   AuthUnAuthenticatedState call({
     String? email,
     String? password,
+    String? confirmPassword,
+    bool? isStudent,
     Committee? selectedCommittee,
     String? committeeCode,
     List<Committee>? availableCommittes,
@@ -46,6 +52,14 @@ class _$AuthUnAuthenticatedStateCWProxyImpl
   @override
   AuthUnAuthenticatedState password(String? password) =>
       this(password: password);
+
+  @override
+  AuthUnAuthenticatedState confirmPassword(String? confirmPassword) =>
+      this(confirmPassword: confirmPassword);
+
+  @override
+  AuthUnAuthenticatedState isStudent(bool? isStudent) =>
+      this(isStudent: isStudent);
 
   @override
   AuthUnAuthenticatedState selectedCommittee(Committee? selectedCommittee) =>
@@ -71,6 +85,8 @@ class _$AuthUnAuthenticatedStateCWProxyImpl
   AuthUnAuthenticatedState call({
     Object? email = const $CopyWithPlaceholder(),
     Object? password = const $CopyWithPlaceholder(),
+    Object? confirmPassword = const $CopyWithPlaceholder(),
+    Object? isStudent = const $CopyWithPlaceholder(),
     Object? selectedCommittee = const $CopyWithPlaceholder(),
     Object? committeeCode = const $CopyWithPlaceholder(),
     Object? availableCommittes = const $CopyWithPlaceholder(),
@@ -84,6 +100,14 @@ class _$AuthUnAuthenticatedStateCWProxyImpl
           ? _value.password
           // ignore: cast_nullable_to_non_nullable
           : password as String?,
+      confirmPassword: confirmPassword == const $CopyWithPlaceholder()
+          ? _value.confirmPassword
+          // ignore: cast_nullable_to_non_nullable
+          : confirmPassword as String?,
+      isStudent: isStudent == const $CopyWithPlaceholder()
+          ? _value.isStudent
+          // ignore: cast_nullable_to_non_nullable
+          : isStudent as bool?,
       selectedCommittee: selectedCommittee == const $CopyWithPlaceholder()
           ? _value.selectedCommittee
           // ignore: cast_nullable_to_non_nullable

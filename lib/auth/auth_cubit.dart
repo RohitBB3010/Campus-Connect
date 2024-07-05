@@ -43,4 +43,16 @@ class AuthCubit extends Cubit<AuthState> {
     emit((state as AuthUnAuthenticatedState)
         .copyWith(selectedCommittee: null, committeeCode: null));
   }
+
+  void emailChanged(String value) {
+    emit((state as AuthUnAuthenticatedState).copyWith(email: value));
+  }
+
+  void paswordChanged(String value) {
+    emit((state as AuthUnAuthenticatedState).copyWith(password: value));
+  }
+
+  void confirmPasswordChanged(String value) {
+    emit((state as AuthUnAuthenticatedState).copyWith(confirmPassword: value));
+  }
 }

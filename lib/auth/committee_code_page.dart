@@ -1,6 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:campus_connecy/auth/auth_cubit.dart';
 import 'package:campus_connecy/auth/auth_state.dart';
+import 'package:campus_connecy/auth/select_page.dart';
 import 'package:campus_connecy/components/auth_skeleton.dart';
 import 'package:campus_connecy/components/custom_button.dart';
 import 'package:campus_connecy/components/text_button.dart';
@@ -119,7 +120,9 @@ class CommitteeCodePage extends StatelessWidget {
                     buttonWidth: 0.8,
                     buttonText: AuthStrings().returnToSelectPage,
                     onPressed: () {
-                      Navigator.pop(context);
+                      Navigator.of(context).pushAndRemoveUntil(
+                          MaterialPageRoute(builder: (context) => SelectPage()),
+                          (Route<dynamic> route) => false);
                     })
               ],
             ),
