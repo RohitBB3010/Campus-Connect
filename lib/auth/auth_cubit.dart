@@ -21,11 +21,20 @@ class AuthCubit extends Cubit<AuthState> {
       committeList.add(current);
     });
 
-    print(committeList);
     emit(
       (state as AuthUnAuthenticatedState)
           .copyWith(availableCommittes: committeList),
     );
+  }
+
+  Future<bool> checkUserExists(String email) async {
+    var studentDocuments = await FirebaseFirestore.instance
+        .collection('Students')
+        .where('email', isEqualTo: email)
+        .limit(1)
+        .get();
+
+    return studentDocuments.docs.isNotEmpty;
   }
 
   void committeeChanged(Committee committee) {
