@@ -9,4 +9,9 @@ class AuthStrings {
   String committeeUsername = "Enter Username";
   String enterPassword = "Enter Password";
   String selectCommittee = "Select Committee";
+  String noteText = "Note:";
+  String codeNote =
+      " Committee code is provided by the committee faculty head, please contact them or committee head for the code";
+  String selectCommitteeFirst = "Please Select Committee First";
+  String incorrectCode = "The code is incorrect";
 }

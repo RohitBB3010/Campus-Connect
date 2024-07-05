@@ -2,6 +2,8 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:campus_connecy/auth/auth_cubit.dart';
 import 'package:campus_connecy/auth/auth_state.dart';
 import 'package:campus_connecy/components/auth_skeleton.dart';
+import 'package:campus_connecy/components/custom_button.dart';
+import 'package:campus_connecy/components/text_field.dart';
 import 'package:campus_connecy/constants/colors.dart';
 import 'package:campus_connecy/constants/spacingConsts.dart';
 import 'package:campus_connecy/constants/string_constants.dart';
@@ -18,9 +20,6 @@ class CommitteeCodePage extends StatelessWidget {
     return BlocBuilder<AuthCubit, AuthState>(
       builder: (context, state) {
         if (state is AuthUnAuthenticatedState) {
-          Committee selectedCommittee = state.availableCommittes!.first;
-
-          debugPrint(state.availableCommittes.toString());
           return AuthSkeleton(
             bodyContent: Column(
               children: [
@@ -31,7 +30,7 @@ class CommitteeCodePage extends StatelessWidget {
                 ),
                 SpacingConsts().mediumHeightBetweenFields(context),
                 SizedBox(
-                  width: MediaQuery.of(context).size.width * 0.7,
+                  width: MediaQuery.of(context).size.width * 0.8,
                   child: DropdownButtonHideUnderline(
                       child: DropdownButton2(
                           menuItemStyleData: MenuItemStyleData(),
@@ -55,7 +54,49 @@ class CommitteeCodePage extends StatelessWidget {
                           items: state.availableCommittes!.map((c) {
                             return item(c);
                           }).toList())),
-                )
+                ),
+                SpacingConsts().mediumHeightBetweenFields(context),
+                CustomTextField(
+                    fieldWidth: 0.8,
+                    hintText: 'Enter code',
+                    onChanged: context.read<AuthCubit>().codeChanged),
+                SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.75,
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        AutoSizeText(
+                          AuthStrings().noteText,
+                          style: const TextStyle(
+                              fontFamily: "Futura",
+                              fontSize: 18.0,
+                              fontWeight: FontWeight.bold),
+                        ),
+                        Expanded(
+                          child: AutoSizeText(
+                            AuthStrings().codeNote,
+                            maxLines: 3,
+                            style: const TextStyle(
+                                fontFamily: "Futura",
+                                fontSize: 18.0,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        )
+                      ],
+                    )),
+                SpacingConsts().mediumHeightBetweenFields(context),
+                CustomButton(context, "Dum", accent3, () {
+                  if (state.selectedCommittee == null) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                        buildSnackbar(AuthStrings().selectCommitteeFirst));
+                  }
+                  if (state.selectedCommittee != null &&
+                      state.selectedCommittee!.code != state.committeeCode) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                        buildSnackbar(AuthStrings().incorrectCode));
+                  }
+                }, 0.8, 0.07)
               ],
             ),
           );
@@ -74,7 +115,22 @@ class CommitteeCodePage extends StatelessWidget {
           maxLines: 2,
           wrapWords: true,
           overflow: TextOverflow.ellipsis,
-          style: const TextStyle(fontFamily: 'Futura', fontSize: 25.0),
+          style: const TextStyle(fontFamily: 'Futura', fontSize: 20.0),
         ));
+  }
+
+  SnackBar buildSnackbar(String snackBarText) {
+    return SnackBar(
+      content: Center(
+        child: AutoSizeText(
+          snackBarText,
+          style:
+              TextStyle(fontFamily: "Futura", fontSize: 20.0, color: primary1),
+        ),
+      ),
+      backgroundColor: accent3,
+      elevation: 20.0,
+      behavior: SnackBarBehavior.floating,
+    );
   }
 }
