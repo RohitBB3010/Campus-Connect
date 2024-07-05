@@ -1,17 +1,37 @@
 import 'package:campus_connecy/auth/auth_state.dart';
+import 'package:campus_connecy/models/committee.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AuthCubit extends Cubit<AuthState> {
   AuthCubit() : super(AuthUnAuthenticatedState());
 
   void getCommitteesList() async {
+    List<Committee> committeList = [];
+
     var document = await FirebaseFirestore.instance
         .collection('back-end_data')
         .doc('committee_codes')
         .get();
 
-    debugPrint(document.data().toString());
+    Map<String, dynamic>? documentData = document.data();
+
+    documentData?.values.forEach((committeeJson) {
+      Committee current = Committee.fromJson(committeeJson);
+      committeList.add(current);
+    });
+
+    print(committeList);
+    emit(
+      (state as AuthUnAuthenticatedState)
+          .copyWith(availableCommittes: committeList),
+    );
+  }
+
+  void committeeChanged(Committee committee) {
+    emit(
+      (state as AuthUnAuthenticatedState)
+          .copyWith(selectedCommittee: committee),
+    );
   }
 }

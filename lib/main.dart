@@ -16,10 +16,9 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-        home: BlocProvider(
+    return BlocProvider(
       create: (context) => AuthCubit()..getCommitteesList(),
-      child: BlocBuilder<AuthCubit, AuthState>(
+      child: MaterialApp(home: BlocBuilder<AuthCubit, AuthState>(
         builder: (context, state) {
           if (state is AuthUnAuthenticatedState) {
             return SelectPage();
@@ -31,7 +30,7 @@ class MainApp extends StatelessWidget {
 
           return Container();
         },
-      ),
-    ));
+      )),
+    );
   }
 }

@@ -11,9 +11,12 @@ abstract class _$AuthUnAuthenticatedStateCWProxy {
 
   AuthUnAuthenticatedState password(String? password);
 
-  AuthUnAuthenticatedState selectedCommittee(String? selectedCommittee);
+  AuthUnAuthenticatedState selectedCommittee(Committee? selectedCommittee);
 
   AuthUnAuthenticatedState committeeCode(String? committeeCode);
+
+  AuthUnAuthenticatedState availableCommittes(
+      List<Committee>? availableCommittes);
 
   /// This function **does support** nullification of nullable fields. All `null` values passed to `non-nullable` fields will be ignored. You can also use `AuthUnAuthenticatedState(...).copyWith.fieldName(...)` to override fields one at a time with nullification support.
   ///
@@ -24,8 +27,9 @@ abstract class _$AuthUnAuthenticatedStateCWProxy {
   AuthUnAuthenticatedState call({
     String? email,
     String? password,
-    String? selectedCommittee,
+    Committee? selectedCommittee,
     String? committeeCode,
+    List<Committee>? availableCommittes,
   });
 }
 
@@ -44,12 +48,17 @@ class _$AuthUnAuthenticatedStateCWProxyImpl
       this(password: password);
 
   @override
-  AuthUnAuthenticatedState selectedCommittee(String? selectedCommittee) =>
+  AuthUnAuthenticatedState selectedCommittee(Committee? selectedCommittee) =>
       this(selectedCommittee: selectedCommittee);
 
   @override
   AuthUnAuthenticatedState committeeCode(String? committeeCode) =>
       this(committeeCode: committeeCode);
+
+  @override
+  AuthUnAuthenticatedState availableCommittes(
+          List<Committee>? availableCommittes) =>
+      this(availableCommittes: availableCommittes);
 
   @override
 
@@ -64,6 +73,7 @@ class _$AuthUnAuthenticatedStateCWProxyImpl
     Object? password = const $CopyWithPlaceholder(),
     Object? selectedCommittee = const $CopyWithPlaceholder(),
     Object? committeeCode = const $CopyWithPlaceholder(),
+    Object? availableCommittes = const $CopyWithPlaceholder(),
   }) {
     return AuthUnAuthenticatedState(
       email: email == const $CopyWithPlaceholder()
@@ -77,11 +87,15 @@ class _$AuthUnAuthenticatedStateCWProxyImpl
       selectedCommittee: selectedCommittee == const $CopyWithPlaceholder()
           ? _value.selectedCommittee
           // ignore: cast_nullable_to_non_nullable
-          : selectedCommittee as String?,
+          : selectedCommittee as Committee?,
       committeeCode: committeeCode == const $CopyWithPlaceholder()
           ? _value.committeeCode
           // ignore: cast_nullable_to_non_nullable
           : committeeCode as String?,
+      availableCommittes: availableCommittes == const $CopyWithPlaceholder()
+          ? _value.availableCommittes
+          // ignore: cast_nullable_to_non_nullable
+          : availableCommittes as List<Committee>?,
     );
   }
 }

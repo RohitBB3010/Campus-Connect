@@ -6,7 +6,7 @@ part 'committee.g.dart';
 class Committee {
   String name;
   String code;
-  String image;
+  String logo;
 
   factory Committee.fromJson(Map<String, dynamic> json) =>
       _$CommitteeFromJson(json);
@@ -14,7 +14,7 @@ class Committee {
   Committee({
     required this.name,
     required this.code,
-    required this.image,
+    required this.logo,
   });
 
   Map<String, dynamic> toJson() => _$CommitteeToJson(this);

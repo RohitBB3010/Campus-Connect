@@ -9,11 +9,11 @@ part of 'committee.dart';
 Committee _$CommitteeFromJson(Map<String, dynamic> json) => Committee(
       name: json['name'] as String,
       code: json['code'] as String,
-      image: json['image'] as String,
+      logo: json['logo'] as String,
     );
 
 Map<String, dynamic> _$CommitteeToJson(Committee instance) => <String, dynamic>{
       'name': instance.name,
       'code': instance.code,
-      'image': instance.image,
+      'logo': instance.logo,
     };

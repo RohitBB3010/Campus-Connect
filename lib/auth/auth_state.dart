@@ -11,10 +11,14 @@ class AuthAuthenticatedState extends AuthState {}
 class AuthUnAuthenticatedState extends AuthState {
   String? email;
   String? password;
-  String? selectedCommittee;
+  Committee? selectedCommittee;
   String? committeeCode;
   List<Committee>? availableCommittes;
 
   AuthUnAuthenticatedState(
-      {this.email, this.password, this.selectedCommittee, this.committeeCode});
+      {this.email,
+      this.password,
+      this.selectedCommittee,
+      this.committeeCode,
+      this.availableCommittes});
 }
