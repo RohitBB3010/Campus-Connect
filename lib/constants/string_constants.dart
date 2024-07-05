@@ -7,4 +7,5 @@ class AuthStrings {
   String studentAuth = "Sign In As Student";
   String signIn = "Sign In";
   String committeeUsername = "Enter Username";
+  String enterPassword = "Enter Password";
 }

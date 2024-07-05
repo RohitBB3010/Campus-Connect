@@ -1,5 +1,4 @@
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:campus_connecy/auth/committee_auth/committee_auth_page.dart';
 import 'package:campus_connecy/components/custom_button.dart';
 import 'package:campus_connecy/constants/colors.dart';
 import 'package:campus_connecy/constants/spacingConsts.dart';
@@ -70,11 +69,8 @@ class SelectPage extends StatelessWidget {
                         ),
                         SpacingConsts()
                             .customHeightBetweenFields(context, 0.03),
-                        CustomButton(
-                            context, AuthStrings().committeeAuth, accent3, () {
-                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => CommitteeAuthPage()));
-                        }, 0.6, 0.08),
+                        CustomButton(context, AuthStrings().committeeAuth,
+                            accent3, () {}, 0.6, 0.08),
                         SpacingConsts().smallHeightBetweenFields(context),
                         const AutoSizeText(
                           'Or',

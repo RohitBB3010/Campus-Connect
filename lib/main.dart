@@ -1,7 +1,13 @@
+import 'package:campus_connecy/auth/auth_cubit.dart';
+import 'package:campus_connecy/auth/auth_state.dart';
 import 'package:campus_connecy/auth/select_page.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(const MainApp());
 }
 
@@ -10,8 +16,22 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: SelectPage(),
-    );
+    return MaterialApp(
+        home: BlocProvider(
+      create: (context) => AuthCubit(),
+      child: BlocBuilder<AuthCubit, AuthState>(
+        builder: (context, state) {
+          if (state is AuthUnAuthenticatedState) {
+            return SelectPage();
+          }
+
+          if (state is AuthUnAuthenticatedState) {
+            return Text('Authenticated');
+          }
+
+          return Container();
+        },
+      ),
+    ));
   }
 }
