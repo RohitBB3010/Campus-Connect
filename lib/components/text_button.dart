@@ -27,7 +27,6 @@ class CustomTextButton extends StatelessWidget {
             buttonText,
             maxLines: 1,
             style: TextStyle(
-                fontFamily: "Futura",
                 color: accent3,
                 decoration: TextDecoration.underline,
                 fontSize: 20.0),

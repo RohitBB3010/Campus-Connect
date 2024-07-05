@@ -27,7 +27,7 @@ class CommitteeCodePage extends StatelessWidget {
                 SpacingConsts().mediumHeightBetweenFields(context),
                 AutoSizeText(
                   AuthStrings().selectCommittee,
-                  style: const TextStyle(fontFamily: 'Futura', fontSize: 40.0),
+                  style: const TextStyle(fontSize: 40.0),
                 ),
                 SpacingConsts().mediumHeightBetweenFields(context),
                 SizedBox(
@@ -71,18 +71,14 @@ class CommitteeCodePage extends StatelessWidget {
                         AutoSizeText(
                           AuthStrings().noteText,
                           style: const TextStyle(
-                              fontFamily: "Futura",
-                              fontSize: 18.0,
-                              fontWeight: FontWeight.bold),
+                              fontSize: 18.0, fontWeight: FontWeight.bold),
                         ),
                         Expanded(
                           child: AutoSizeText(
                             AuthStrings().codeNote,
                             maxLines: 3,
                             style: const TextStyle(
-                                fontFamily: "Futura",
-                                fontSize: 18.0,
-                                fontWeight: FontWeight.bold),
+                                fontSize: 18.0, fontWeight: FontWeight.bold),
                           ),
                         )
                       ],
@@ -97,7 +93,7 @@ class CommitteeCodePage extends StatelessWidget {
 
                   if (state.committeeCode == null) {
                     ScaffoldMessenger.of(context)
-                        .showSnackBar(buildSnackbar("Pls enter code first"));
+                        .showSnackBar(buildSnackbar(AuthStrings().emptyCode));
                     return;
                   }
 
@@ -152,8 +148,7 @@ class CommitteeCodePage extends StatelessWidget {
       content: Center(
         child: AutoSizeText(
           snackBarText,
-          style:
-              TextStyle(fontFamily: "Futura", fontSize: 20.0, color: primary1),
+          style: TextStyle(fontSize: 20.0, color: primary1),
         ),
       ),
       backgroundColor: accent3,

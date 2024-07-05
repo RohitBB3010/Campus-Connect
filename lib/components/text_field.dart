@@ -29,7 +29,6 @@ class CustomTextField extends StatelessWidget {
             prefixIcon: icon,
             hintText: hintText,
             hintStyle: const TextStyle(
-              fontFamily: 'Futura',
               fontSize: 20.0,
             ),
             contentPadding: EdgeInsets.symmetric(

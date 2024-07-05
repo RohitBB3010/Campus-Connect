@@ -18,19 +18,21 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => AuthCubit()..getCommitteesList(),
-      child: MaterialApp(home: BlocBuilder<AuthCubit, AuthState>(
-        builder: (context, state) {
-          if (state is AuthUnAuthenticatedState) {
-            return SelectPage();
-          }
+      child: MaterialApp(
+          theme: ThemeData(fontFamily: "Futura"),
+          home: BlocBuilder<AuthCubit, AuthState>(
+            builder: (context, state) {
+              if (state is AuthUnAuthenticatedState) {
+                return SelectPage();
+              }
 
-          if (state is AuthUnAuthenticatedState) {
-            return Text('Authenticated');
-          }
+              if (state is AuthUnAuthenticatedState) {
+                return Text('Authenticated');
+              }
 
-          return Container();
-        },
-      )),
+              return Container();
+            },
+          )),
     );
   }
 }

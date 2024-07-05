@@ -22,7 +22,7 @@ Widget CustomButton(
       style: ElevatedButton.styleFrom(
         backgroundColor: buttonColor ?? accent3,
         shape: RoundedRectangleBorder(
-          side: buttonColor == null
+          side: buttonColor == null || buttonColor != accent3
               ? BorderSide(
                   color: secondary3.withAlpha(100),
                 )
@@ -38,7 +38,6 @@ Widget CustomButton(
               ? primary1
               : secondary3,
           fontSize: 30.0,
-          fontFamily: 'Futura',
         ),
       ),
     ),
