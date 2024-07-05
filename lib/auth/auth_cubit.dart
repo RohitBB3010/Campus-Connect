@@ -38,4 +38,9 @@ class AuthCubit extends Cubit<AuthState> {
   void codeChanged(String code) {
     emit((state as AuthUnAuthenticatedState).copyWith(committeeCode: code));
   }
+
+  void resetSelectedCommitteeAndCode() {
+    emit((state as AuthUnAuthenticatedState)
+        .copyWith(selectedCommittee: null, committeeCode: null));
+  }
 }

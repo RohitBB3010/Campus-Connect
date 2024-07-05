@@ -92,11 +92,30 @@ class CommitteeCodePage extends StatelessWidget {
                   if (state.selectedCommittee == null) {
                     ScaffoldMessenger.of(context).showSnackBar(
                         buildSnackbar(AuthStrings().selectCommitteeFirst));
+                    return;
                   }
-                  if (state.selectedCommittee != null &&
-                      state.selectedCommittee!.code != state.committeeCode) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                        buildSnackbar(AuthStrings().incorrectCode));
+
+                  if (state.committeeCode == null) {
+                    ScaffoldMessenger.of(context)
+                        .showSnackBar(buildSnackbar("Pls enter code first"));
+                    return;
+                  }
+
+                  if (state.committeeCode != null) {
+                    String trimmedCode = state.committeeCode!.trim();
+
+                    if (trimmedCode.isEmpty) {
+                      ScaffoldMessenger.of(context)
+                          .showSnackBar(buildSnackbar(AuthStrings().emptyCode));
+                      return;
+                    }
+
+                    if (state.selectedCommittee != null &&
+                        state.selectedCommittee!.code != trimmedCode) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                          buildSnackbar(AuthStrings().incorrectCode));
+                      return;
+                    }
                   }
                 }, 0.8, 0.07),
                 SpacingConsts().smallHeightBetweenFields(context),

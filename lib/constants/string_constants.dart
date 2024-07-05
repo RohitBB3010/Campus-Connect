@@ -16,4 +16,5 @@ class AuthStrings {
   String incorrectCode = "The code is incorrect";
   String verifyCode = "Verify Code";
   String returnToSelectPage = "Return To Select Page";
+  String emptyCode = "Please enter code first";
 }
