@@ -5,7 +5,15 @@ part 'auth_state.g.dart';
 
 class AuthState {}
 
-class AuthAuthenticatedState extends AuthState {}
+@CopyWith()
+class AuthAuthenticatedState extends AuthState {
+  bool? isStudent;
+
+  AuthAuthenticatedState({this.isStudent});
+
+  @override
+  List<Object?> get props => [isStudent];
+}
 
 @CopyWith()
 class AuthUnAuthenticatedState extends AuthState {
@@ -25,4 +33,15 @@ class AuthUnAuthenticatedState extends AuthState {
       this.selectedCommittee,
       this.committeeCode,
       this.availableCommittes});
+
+  @override
+  List<Object?> get props => [
+        email,
+        password,
+        confirmPassword,
+        isStudent,
+        selectedCommittee,
+        committeeCode,
+        availableCommittes
+      ];
 }

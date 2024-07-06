@@ -53,6 +53,10 @@ class LoginPage extends StatelessWidget {
                       ScaffoldMessenger.of(context).showSnackBar(
                           buildSnackbar(AuthStrings().accountDoesNotExist));
                     }
+
+                    context
+                        .read<AuthCubit>()
+                        .signIn(state.email!, state.password!);
                   }
                 }, 0.8, 0.07),
                 SpacingConsts().smallHeightBetweenFields(context),

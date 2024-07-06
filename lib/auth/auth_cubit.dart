@@ -1,7 +1,6 @@
-import 'dart:ffi';
-
 import 'package:campus_connecy/auth/auth_state.dart';
 import 'package:campus_connecy/models/committee.dart';
+import 'package:campus_connecy/models/student.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
@@ -33,7 +32,7 @@ class AuthCubit extends Cubit<AuthState> {
 
   Future<bool> checkUserExists(String email) async {
     var studentDocuments = await FirebaseFirestore.instance
-        .collection('Students')
+        .collection('Users')
         .where('email', isEqualTo: email)
         .limit(1)
         .get();
@@ -76,9 +75,37 @@ class AuthCubit extends Cubit<AuthState> {
       return "Email Not Verified";
     }
 
-    if (user.emailVerified) {
+    try {
       user.updatePassword(password);
-      return "Password updated Successfully";
+      bool? isStudent = (state as AuthUnAuthenticatedState).isStudent;
+      await addUserDoc((state as AuthUnAuthenticatedState).email!);
+      emit(AuthAuthenticatedState(isStudent: isStudent));
+      debugPrint("Emitted AuthAuthenticatedState with isStudent: $isStudent");
+      return "Password set Successfully";
+    } catch (error) {
+      debugPrint(error.toString());
+    }
+  }
+
+  Future<void> addUserDoc(String studentEmail) async {
+    Student student = Student(email: studentEmail);
+
+    FirebaseFirestore.instance.collection('Users').add(student.toJson());
+  }
+
+  Future<void> signIn(String email, String password) async {
+    try {
+      UserCredential userCred = await FirebaseAuth.instance
+          .signInWithEmailAndPassword(email: email, password: password);
+
+      // Assuming logic to determine if the user is a student
+      bool isStudentData = true; // or false based on your logic
+
+      emit(AuthAuthenticatedState(isStudent: isStudentData));
+      debugPrint(
+          "Emitted AuthAuthenticatedState with isStudent: $isStudentData");
+    } catch (error) {
+      debugPrint(error.toString());
     }
   }
 

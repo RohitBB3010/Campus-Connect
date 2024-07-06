@@ -3,3 +3,10 @@ class CommitteeList {
   static const committeeLogo = "logo";
   static const committeeCode = "code";
 }
+
+class User {
+  static const fieldName = "name";
+  static const fieldRoll = "roll";
+  static const fieldEmail = "email";
+  static const fieldCommittees = "committees";
+}
