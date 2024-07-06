@@ -30,11 +30,7 @@ class MainApp extends StatelessWidget {
               return SelectPage();
             } else if (state is AuthAuthenticatedState) {
               // Navigate to the appropriate page based on isStudent flag
-              if (state.isStudent != null && state.isStudent!) {
-                return StudentHome();
-              } else {
-                return CommitteePage();
-              }
+              return AutoSizeText("Is student");
             }
             // Handle loading or error states if needed
             return Container();

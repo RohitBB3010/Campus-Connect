@@ -79,8 +79,10 @@ class AuthCubit extends Cubit<AuthState> {
       user.updatePassword(password);
       bool? isStudent = (state as AuthUnAuthenticatedState).isStudent;
       await addUserDoc((state as AuthUnAuthenticatedState).email!);
-      emit(AuthAuthenticatedState(isStudent: isStudent));
-      debugPrint("Emitted AuthAuthenticatedState with isStudent: $isStudent");
+
+      bool? isStudentData = (state as AuthUnAuthenticatedState).isStudent;
+
+      emit(AuthAuthenticatedState(isStudent: isStudentData));
       return "Password set Successfully";
     } catch (error) {
       debugPrint(error.toString());
@@ -102,8 +104,7 @@ class AuthCubit extends Cubit<AuthState> {
       bool isStudentData = true; // or false based on your logic
 
       emit(AuthAuthenticatedState(isStudent: isStudentData));
-      debugPrint(
-          "Emitted AuthAuthenticatedState with isStudent: $isStudentData");
+      debugPrint("Emitted AuthAuthenticatedState");
     } catch (error) {
       debugPrint(error.toString());
     }
