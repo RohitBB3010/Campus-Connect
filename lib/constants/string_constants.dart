@@ -25,4 +25,10 @@ class AuthStrings {
   String confirmPassword = "Confirm Password";
   String accountDoesNotExist =
       "The account with your given email address does not exist";
+  String verifyEmail = "Verify email";
+  String verifyNote = "In order to sign up, you need to verify email first";
+  String verifyEnterEmail = "Please enter email first";
+  String setPasswordText = "Set password to complete sign in";
+  String passwordsMismatch = "Passwords do not match";
+  String fillFields = "Please fill all fields";
 }

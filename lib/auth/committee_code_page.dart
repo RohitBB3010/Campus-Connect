@@ -3,6 +3,7 @@ import 'package:campus_connecy/auth/auth_cubit.dart';
 import 'package:campus_connecy/auth/auth_state.dart';
 import 'package:campus_connecy/auth/select_page.dart';
 import 'package:campus_connecy/components/auth_skeleton.dart';
+import 'package:campus_connecy/components/build_snackbar.dart';
 import 'package:campus_connecy/components/custom_button.dart';
 import 'package:campus_connecy/components/text_button.dart';
 import 'package:campus_connecy/components/text_field.dart';
@@ -144,19 +145,5 @@ class CommitteeCodePage extends StatelessWidget {
           overflow: TextOverflow.ellipsis,
           style: const TextStyle(fontFamily: 'Futura', fontSize: 20.0),
         ));
-  }
-
-  SnackBar buildSnackbar(String snackBarText) {
-    return SnackBar(
-      content: Center(
-        child: AutoSizeText(
-          snackBarText,
-          style: TextStyle(fontSize: 20.0, color: primary1),
-        ),
-      ),
-      backgroundColor: accent3,
-      elevation: 20.0,
-      behavior: SnackBarBehavior.floating,
-    );
   }
 }

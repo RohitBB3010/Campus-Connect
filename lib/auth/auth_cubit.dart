@@ -1,6 +1,10 @@
+import 'dart:ffi';
+
 import 'package:campus_connecy/auth/auth_state.dart';
 import 'package:campus_connecy/models/committee.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AuthCubit extends Cubit<AuthState> {
@@ -35,6 +39,47 @@ class AuthCubit extends Cubit<AuthState> {
         .get();
 
     return studentDocuments.docs.isNotEmpty;
+  }
+
+  Future<String> verifyUser(String email) async {
+    String returnMessage = "";
+    try {
+      UserCredential userCreds = await FirebaseAuth.instance
+          .createUserWithEmailAndPassword(
+              email: email, password: 'tempPassword');
+
+      User? user = userCreds.user;
+
+      if (user != null) {
+        user.sendEmailVerification();
+        returnMessage = "Verification email sent";
+      }
+    } catch (error) {
+      returnMessage = error.toString();
+    }
+
+    return returnMessage;
+  }
+
+  Future<String?> setPassword(String password) async {
+    User? user = await FirebaseAuth.instance.currentUser;
+
+    if (user == null) {
+      return "User not found";
+    }
+
+    await user.reload();
+
+    debugPrint(user.emailVerified.toString());
+
+    if (!user.emailVerified) {
+      return "Email Not Verified";
+    }
+
+    if (user.emailVerified) {
+      user.updatePassword(password);
+      return "Password updated Successfully";
+    }
   }
 
   void committeeChanged(Committee committee) {
