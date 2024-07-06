@@ -82,6 +82,15 @@ class AuthCubit extends Cubit<AuthState> {
     }
   }
 
+  Future<void> deleteUser() async {
+    User? user = await FirebaseAuth.instance.currentUser;
+
+    if (user != null) {
+      user.delete();
+      debugPrint('User deleted');
+    }
+  }
+
   void committeeChanged(Committee committee) {
     emit(
       (state as AuthUnAuthenticatedState)
