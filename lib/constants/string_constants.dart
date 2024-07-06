@@ -31,4 +31,5 @@ class AuthStrings {
   String setPasswordText = "Set password to complete sign in";
   String passwordsMismatch = "Passwords do not match";
   String fillFields = "Please fill all fields";
+  String newMember = "New member? Sign up here";
 }

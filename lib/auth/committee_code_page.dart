@@ -2,6 +2,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:campus_connecy/auth/auth_cubit.dart';
 import 'package:campus_connecy/auth/auth_state.dart';
 import 'package:campus_connecy/auth/select_page.dart';
+import 'package:campus_connecy/auth/login_page.dart';
 import 'package:campus_connecy/components/auth_skeleton.dart';
 import 'package:campus_connecy/components/build_snackbar.dart';
 import 'package:campus_connecy/components/custom_button.dart';
@@ -113,6 +114,15 @@ class CommitteeCodePage extends StatelessWidget {
                       ScaffoldMessenger.of(context).showSnackBar(
                           buildSnackbar(AuthStrings().incorrectCode));
                       return;
+                    }
+
+                    if (state.selectedCommittee != null &&
+                        state.committeeCode == state.selectedCommittee!.code) {
+                      context.read<AuthCubit>().setLoginMember();
+                      Navigator.of(context).pushAndRemoveUntil(
+                          MaterialPageRoute(
+                              builder: (context) => const LoginPage()),
+                          (Route<dynamic> routes) => false);
                     }
                   }
                 }, 0.8, 0.07),

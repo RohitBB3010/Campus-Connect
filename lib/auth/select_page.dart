@@ -2,7 +2,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:campus_connecy/auth/auth_cubit.dart';
 import 'package:campus_connecy/auth/auth_state.dart';
 import 'package:campus_connecy/auth/committee_code_page.dart';
-import 'package:campus_connecy/auth/student_login_page.dart';
+import 'package:campus_connecy/auth/login_page.dart';
 import 'package:campus_connecy/components/auth_skeleton.dart';
 import 'package:campus_connecy/components/custom_button.dart';
 import 'package:campus_connecy/constants/colors.dart';
@@ -58,9 +58,9 @@ class SelectPage extends StatelessWidget {
                 ),
                 SpacingConsts().smallHeightBetweenFields(context),
                 CustomButton(context, AuthStrings().studentAuth, primary1, () {
+                  context.read<AuthCubit>().setLoginStudent();
                   Navigator.of(context).pushAndRemoveUntil(
-                    MaterialPageRoute(
-                        builder: (context) => const StudentLoginPage()),
+                    MaterialPageRoute(builder: (context) => const LoginPage()),
                     (Route<dynamic> route) => false,
                   );
                 }, 0.6, 0.08),

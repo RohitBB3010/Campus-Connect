@@ -91,6 +91,14 @@ class AuthCubit extends Cubit<AuthState> {
     }
   }
 
+  void setLoginMember() {
+    emit((state as AuthUnAuthenticatedState).copyWith(isStudent: false));
+  }
+
+  void setLoginStudent() {
+    emit((state as AuthUnAuthenticatedState).copyWith(isStudent: true));
+  }
+
   void committeeChanged(Committee committee) {
     emit(
       (state as AuthUnAuthenticatedState)
