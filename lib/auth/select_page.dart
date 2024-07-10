@@ -43,6 +43,7 @@ class SelectPage extends StatelessWidget {
                 SpacingConsts().customHeightBetweenFields(context, 0.03),
                 CustomButton(context, AuthStrings().committeeAuth, accent3, () {
                   context.read<AuthCubit>().resetSelectedCommitteeAndCode();
+                  context.read<AuthCubit>().setIsStudent(false);
                   Navigator.of(context).pushAndRemoveUntil(
                     MaterialPageRoute(
                         builder: (context) => const CommitteeCodePage()),
@@ -58,7 +59,7 @@ class SelectPage extends StatelessWidget {
                 ),
                 SpacingConsts().smallHeightBetweenFields(context),
                 CustomButton(context, AuthStrings().studentAuth, primary1, () {
-                  context.read<AuthCubit>().setLoginStudent();
+                  context.read<AuthCubit>().setIsStudent(true);
                   Navigator.of(context).pushAndRemoveUntil(
                     MaterialPageRoute(builder: (context) => const LoginPage()),
                     (Route<dynamic> route) => false,

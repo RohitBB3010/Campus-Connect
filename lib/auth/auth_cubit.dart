@@ -7,7 +7,33 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AuthCubit extends Cubit<AuthState> {
-  AuthCubit() : super(AuthUnAuthenticatedState());
+  AuthCubit() : super(AuthInitialState()) {
+    User? currentUser = FirebaseAuth.instance.currentUser;
+
+    if (currentUser != null) {
+      emit(AuthAuthenticatedState());
+    } else {
+      emit(AuthUnAuthenticatedState());
+    }
+  }
+
+  bool? isStudent;
+
+  bool? getIsStudent() {
+    return isStudent;
+  }
+
+  void setIsStudent(bool setValue) {
+    isStudent = setValue;
+  }
+
+  void checkSignIn() {
+    User? user = FirebaseAuth.instance.currentUser;
+
+    if (user != null) {
+      emit(AuthAuthenticatedState());
+    }
+  }
 
   void getCommitteesList() async {
     List<Committee> committeList = [];
@@ -77,12 +103,9 @@ class AuthCubit extends Cubit<AuthState> {
 
     try {
       user.updatePassword(password);
-      bool? isStudent = (state as AuthUnAuthenticatedState).isStudent;
       await addUserDoc((state as AuthUnAuthenticatedState).email!);
 
-      bool? isStudentData = (state as AuthUnAuthenticatedState).isStudent;
-
-      emit(AuthAuthenticatedState(isStudent: isStudentData));
+      emit(AuthAuthenticatedState());
       return "Password set Successfully";
     } catch (error) {
       debugPrint(error.toString());
@@ -100,18 +123,17 @@ class AuthCubit extends Cubit<AuthState> {
       UserCredential userCred = await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: email, password: password);
 
-      // Assuming logic to determine if the user is a student
-      bool isStudentData = true; // or false based on your logic
+      bool isStudentData = true;
 
-      emit(AuthAuthenticatedState(isStudent: isStudentData));
+      emit(AuthAuthenticatedState());
       debugPrint("Emitted AuthAuthenticatedState");
     } catch (error) {
       debugPrint(error.toString());
     }
   }
 
-  Future<void> deleteUser() async {
-    User? user = await FirebaseAuth.instance.currentUser;
+  void deleteUser() {
+    User? user = FirebaseAuth.instance.currentUser;
 
     if (user != null) {
       user.delete();
@@ -119,12 +141,9 @@ class AuthCubit extends Cubit<AuthState> {
     }
   }
 
-  void setLoginMember() {
-    emit((state as AuthUnAuthenticatedState).copyWith(isStudent: false));
-  }
-
-  void setLoginStudent() {
-    emit((state as AuthUnAuthenticatedState).copyWith(isStudent: true));
+  void signOut() async {
+    FirebaseAuth.instance.signOut();
+    emit(AuthUnAuthenticatedState());
   }
 
   void committeeChanged(Committee committee) {

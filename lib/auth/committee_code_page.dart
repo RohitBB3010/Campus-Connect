@@ -118,7 +118,6 @@ class CommitteeCodePage extends StatelessWidget {
 
                     if (state.selectedCommittee != null &&
                         state.committeeCode == state.selectedCommittee!.code) {
-                      context.read<AuthCubit>().setLoginMember();
                       Navigator.of(context).pushAndRemoveUntil(
                           MaterialPageRoute(
                               builder: (context) => const LoginPage()),
@@ -132,7 +131,8 @@ class CommitteeCodePage extends StatelessWidget {
                     buttonText: AuthStrings().returnToSelectPage,
                     onPressed: () {
                       Navigator.of(context).pushAndRemoveUntil(
-                          MaterialPageRoute(builder: (context) => SelectPage()),
+                          MaterialPageRoute(
+                              builder: (context) => const SelectPage()),
                           (Route<dynamic> route) => false);
                     })
               ],

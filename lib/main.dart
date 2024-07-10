@@ -20,20 +20,26 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => AuthCubit()..getCommitteesList(),
+      create: (context) => AuthCubit()
+        ..checkSignIn()
+        ..getCommitteesList(),
       child: MaterialApp(
         theme: ThemeData(fontFamily: "Futura"),
         home: BlocBuilder<AuthCubit, AuthState>(
           builder: (context, state) {
+            bool isStudent = context.read<AuthCubit>().isStudent ?? true;
             debugPrint("Current state: $state");
             if (state is AuthUnAuthenticatedState) {
-              return SelectPage();
+              return const SelectPage();
             } else if (state is AuthAuthenticatedState) {
-              // Navigate to the appropriate page based on isStudent flag
-              return AutoSizeText("Is student");
+              if (isStudent) {
+                return StudentHome();
+              } else {
+                return CommitteePage();
+              }
             }
-            // Handle loading or error states if needed
-            return Container();
+
+            return AutoSizeText("Main default");
           },
         ),
       ),

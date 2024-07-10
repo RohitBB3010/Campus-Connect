@@ -23,6 +23,7 @@ dependencies:
   ionicons: ^0.2.2
   json_annotation: ^4.9.0
   json_serializable: ^6.8.0
+  shared_preferences: ^2.2.3
 
 dev_dependencies:
   flutter_test:

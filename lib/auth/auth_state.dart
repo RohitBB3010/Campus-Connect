@@ -5,18 +5,15 @@ part 'auth_state.g.dart';
 
 class AuthState {}
 
-class AuthAuthenticatedState extends AuthState {
-  bool? isStudent;
+class AuthInitialState extends AuthState {}
 
-  AuthAuthenticatedState({this.isStudent});
-}
+class AuthAuthenticatedState extends AuthState {}
 
 @CopyWith()
 class AuthUnAuthenticatedState extends AuthState {
   String? email;
   String? password;
   String? confirmPassword;
-  bool? isStudent;
   Committee? selectedCommittee;
   String? committeeCode;
   List<Committee>? availableCommittes;
@@ -25,7 +22,6 @@ class AuthUnAuthenticatedState extends AuthState {
       {this.email,
       this.password,
       this.confirmPassword,
-      this.isStudent,
       this.selectedCommittee,
       this.committeeCode,
       this.availableCommittes});
@@ -35,7 +31,6 @@ class AuthUnAuthenticatedState extends AuthState {
         email,
         password,
         confirmPassword,
-        isStudent,
         selectedCommittee,
         committeeCode,
         availableCommittes
