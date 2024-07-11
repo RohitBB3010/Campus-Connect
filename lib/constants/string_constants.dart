@@ -33,3 +33,11 @@ class AuthStrings {
   String fillFields = "Please fill all fields";
   String newMember = "New member? Sign up here";
 }
+
+class StudentMandatoryConsts {
+  String register = "Register with us";
+  String enterName = "Enter name";
+  String enterEmail = "Enter email";
+  String enterPhone = "Enter phone number";
+  String selectCommittees = "Select Committees";
+}

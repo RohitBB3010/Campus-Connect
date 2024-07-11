@@ -36,7 +36,7 @@ class AuthCubit extends Cubit<AuthState> {
   }
 
   void getCommitteesList() async {
-    List<Committee> committeList = [];
+    List<CommitteeList> committeList = [];
 
     var document = await FirebaseFirestore.instance
         .collection('back-end_data')
@@ -46,7 +46,7 @@ class AuthCubit extends Cubit<AuthState> {
     Map<String, dynamic>? documentData = document.data();
 
     documentData?.values.forEach((committeeJson) {
-      Committee current = Committee.fromJson(committeeJson);
+      CommitteeList current = CommitteeList.fromJson(committeeJson);
       committeList.add(current);
     });
 
@@ -146,7 +146,7 @@ class AuthCubit extends Cubit<AuthState> {
     emit(AuthUnAuthenticatedState());
   }
 
-  void committeeChanged(Committee committee) {
+  void committeeChanged(CommitteeList committee) {
     emit(
       (state as AuthUnAuthenticatedState)
           .copyWith(selectedCommittee: committee),

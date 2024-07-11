@@ -6,26 +6,27 @@ part 'student.g.dart';
 class Student {
   String? name;
   String? email;
-  String? rollNumber;
-  List<CommitteeData>? committees;
+  String? phoneNumber;
+  List<CommitteesSubscribed>? committeesSubscribed;
 
   factory Student.fromJson(Map<String, dynamic> json) =>
       _$StudentFromJson(json);
 
-  Student({this.name, this.email, this.rollNumber, this.committees});
+  Student({this.name, this.email, this.committeesSubscribed, this.phoneNumber});
 
   Map<String, dynamic> toJson() => _$StudentToJson(this);
 }
 
 @JsonSerializable()
-class CommitteeData {
+class CommitteesSubscribed {
   String committeeName;
-  DateTime joined;
+  String dateSubscribed;
 
-  factory CommitteeData.fromJson(Map<String, dynamic> json) =>
-      _$CommitteeDataFromJson(json);
+  factory CommitteesSubscribed.fromJson(Map<String, dynamic> json) =>
+      _$CommitteesSubscribedFromJson(json);
 
-  CommitteeData({required this.committeeName, required this.joined});
+  CommitteesSubscribed(
+      {required this.committeeName, required this.dateSubscribed});
 
-  Map<String, dynamic> toJson() => _$CommitteeDataToJson(this);
+  Map<String, dynamic> toJson() => _$CommitteesSubscribedToJson(this);
 }

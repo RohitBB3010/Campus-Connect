@@ -3,19 +3,19 @@ import 'package:json_annotation/json_annotation.dart';
 part 'committee.g.dart';
 
 @JsonSerializable()
-class Committee {
+class CommitteeList {
   String name;
   String code;
   String logo;
 
-  factory Committee.fromJson(Map<String, dynamic> json) =>
-      _$CommitteeFromJson(json);
+  factory CommitteeList.fromJson(Map<String, dynamic> json) =>
+      _$CommitteeListFromJson(json);
 
-  Committee({
+  CommitteeList({
     required this.name,
     required this.code,
     required this.logo,
   });
 
-  Map<String, dynamic> toJson() => _$CommitteeToJson(this);
+  Map<String, dynamic> toJson() => _$CommitteeListToJson(this);
 }

@@ -6,13 +6,15 @@ part of 'committee.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-Committee _$CommitteeFromJson(Map<String, dynamic> json) => Committee(
+CommitteeList _$CommitteeListFromJson(Map<String, dynamic> json) =>
+    CommitteeList(
       name: json['name'] as String,
       code: json['code'] as String,
       logo: json['logo'] as String,
     );
 
-Map<String, dynamic> _$CommitteeToJson(Committee instance) => <String, dynamic>{
+Map<String, dynamic> _$CommitteeListToJson(CommitteeList instance) =>
+    <String, dynamic>{
       'name': instance.name,
       'code': instance.code,
       'logo': instance.logo,

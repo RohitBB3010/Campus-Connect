@@ -14,9 +14,9 @@ class AuthUnAuthenticatedState extends AuthState {
   String? email;
   String? password;
   String? confirmPassword;
-  Committee? selectedCommittee;
+  CommitteeList? selectedCommittee;
   String? committeeCode;
-  List<Committee>? availableCommittes;
+  List<CommitteeList>? availableCommittes;
 
   AuthUnAuthenticatedState(
       {this.email,

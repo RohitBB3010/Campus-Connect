@@ -145,7 +145,7 @@ class CommitteeCodePage extends StatelessWidget {
     );
   }
 
-  DropdownMenuItem item(Committee current) {
+  DropdownMenuItem item(CommitteeList current) {
     return DropdownMenuItem(
         value: current,
         child: AutoSizeText(

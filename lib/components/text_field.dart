@@ -9,12 +9,14 @@ class CustomTextField extends StatelessWidget {
     required this.hintText,
     this.icon,
     required this.onChanged,
+    this.controller,
   });
   final double fieldWidth;
   final double? fieldHeight;
   final String hintText;
   final Icon? icon;
   final dynamic onChanged;
+  final TextEditingController? controller;
 
   @override
   Widget build(BuildContext context) {
@@ -24,9 +26,21 @@ class CustomTextField extends StatelessWidget {
           ? MediaQuery.of(context).size.height * fieldHeight!
           : MediaQuery.of(context).size.height * 0.06,
       child: TextFormField(
+        controller: controller,
         onChanged: onChanged,
         decoration: InputDecoration(
+            enabled: controller != null && controller!.text.isNotEmpty
+                ? false
+                : true,
+            disabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(
+                    color: controller != null && controller!.text.isNotEmpty
+                        ? secondary3
+                        : secondary2.withOpacity(0.5))),
             prefixIcon: icon,
+            iconColor: controller != null && controller!.text.isNotEmpty
+                ? secondary3
+                : secondary2.withOpacity(0.5),
             hintText: hintText,
             hintStyle: const TextStyle(
               fontSize: 20.0,

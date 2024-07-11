@@ -3,7 +3,7 @@ import 'package:campus_connecy/auth/auth_cubit.dart';
 import 'package:campus_connecy/auth/auth_state.dart';
 import 'package:campus_connecy/auth/select_page.dart';
 import 'package:campus_connecy/committees/committee_page.dart';
-import 'package:campus_connecy/students/student_page.dart';
+import 'package:campus_connecy/students/mandatory_fields_students/student_mandatory_fields.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -33,13 +33,13 @@ class MainApp extends StatelessWidget {
               return const SelectPage();
             } else if (state is AuthAuthenticatedState) {
               if (isStudent) {
-                return StudentHome();
+                return StudentMandatoryFields();
               } else {
-                return CommitteePage();
+                return const CommitteePage();
               }
             }
 
-            return AutoSizeText("Main default");
+            return const AutoSizeText("Main default");
           },
         ),
       ),

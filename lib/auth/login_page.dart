@@ -3,6 +3,7 @@ import 'package:campus_connecy/auth/auth_cubit.dart';
 import 'package:campus_connecy/auth/auth_state.dart';
 import 'package:campus_connecy/auth/select_page.dart';
 import 'package:campus_connecy/auth/verify_email.dart';
+import 'package:campus_connecy/committees/committee_page.dart';
 import 'package:campus_connecy/components/auth_skeleton.dart';
 import 'package:campus_connecy/components/build_snackbar.dart';
 import 'package:campus_connecy/components/custom_button.dart';
@@ -11,6 +12,7 @@ import 'package:campus_connecy/components/text_field.dart';
 import 'package:campus_connecy/constants/colors.dart';
 import 'package:campus_connecy/constants/spacingConsts.dart';
 import 'package:campus_connecy/constants/string_constants.dart';
+import 'package:campus_connecy/students/student_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -84,7 +86,13 @@ class LoginPage extends StatelessWidget {
           ));
         }
 
-        if (state is AuthAuthenticatedState) {}
+        if (state is AuthAuthenticatedState) {
+          if (context.read<AuthCubit>().isStudent ?? true) {
+            return const StudentHome();
+          } else {
+            return const CommitteePage();
+          }
+        }
 
         return Container();
       },

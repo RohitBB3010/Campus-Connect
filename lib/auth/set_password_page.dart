@@ -12,7 +12,7 @@ import 'package:campus_connecy/components/text_field.dart';
 import 'package:campus_connecy/constants/colors.dart';
 import 'package:campus_connecy/constants/spacingConsts.dart';
 import 'package:campus_connecy/constants/string_constants.dart';
-import 'package:flutter/foundation.dart';
+import 'package:campus_connecy/students/mandatory_fields_students/student_mandatory_fields.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -21,62 +21,72 @@ class SetPasswordPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AuthSkeleton(bodyContent:
-        BlocBuilder<AuthCubit, AuthState>(builder: (context, state) {
+    return BlocBuilder<AuthCubit, AuthState>(builder: (context, state) {
       if (state is AuthUnAuthenticatedState) {
-        return Column(
-          children: [
-            SpacingConsts().largeHeightBetweenFields(context),
-            AutoSizeText(
-              AuthStrings().setPasswordText,
-              maxLines: 1,
-              style: TextStyle(fontSize: 25.0),
-            ),
-            SpacingConsts().mediumHeightBetweenFields(context),
-            CustomTextField(
-                fieldWidth: 0.8,
-                hintText: AuthStrings().setPassword,
-                onChanged: context.read<AuthCubit>().paswordChanged),
-            SpacingConsts().mediumHeightBetweenFields(context),
-            CustomTextField(
-                fieldWidth: 0.8,
-                hintText: AuthStrings().confirmPassword,
-                onChanged: context.read<AuthCubit>().confirmPasswordChanged),
-            SpacingConsts().largeHeightBetweenFields(context),
-            CustomButton(context, AuthStrings().setPassword, accent3, () async {
-              if (state.password == null || state.confirmPassword == null) {
-                ScaffoldMessenger.of(context)
-                    .showSnackBar(buildSnackbar(AuthStrings().fillFields));
-              }
+        return AuthSkeleton(
+          bodyContent: Column(
+            children: [
+              SpacingConsts().largeHeightBetweenFields(context),
+              AutoSizeText(
+                AuthStrings().setPasswordText,
+                maxLines: 1,
+                style: TextStyle(fontSize: 25.0),
+              ),
+              SpacingConsts().mediumHeightBetweenFields(context),
+              CustomTextField(
+                  fieldWidth: 0.8,
+                  hintText: AuthStrings().setPassword,
+                  onChanged: context.read<AuthCubit>().paswordChanged),
+              SpacingConsts().mediumHeightBetweenFields(context),
+              CustomTextField(
+                  fieldWidth: 0.8,
+                  hintText: AuthStrings().confirmPassword,
+                  onChanged: context.read<AuthCubit>().confirmPasswordChanged),
+              SpacingConsts().largeHeightBetweenFields(context),
+              CustomButton(context, AuthStrings().setPassword, accent3,
+                  () async {
+                if (state.password == null || state.confirmPassword == null) {
+                  ScaffoldMessenger.of(context)
+                      .showSnackBar(buildSnackbar(AuthStrings().fillFields));
+                }
 
-              if (state.password != state.confirmPassword) {
-                ScaffoldMessenger.of(context).showSnackBar(
-                    buildSnackbar(AuthStrings().passwordsMismatch));
-              }
+                if (state.password != state.confirmPassword) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                      buildSnackbar(AuthStrings().passwordsMismatch));
+                }
 
-              if (state.password != null && state.confirmPassword != null) {
-                String? returnMessage = await context
-                    .read<AuthCubit>()
-                    .setPassword(state.password!);
+                if (state.password != null && state.confirmPassword != null) {
+                  String? returnMessage = await context
+                      .read<AuthCubit>()
+                      .setPassword(state.password!);
 
-                ScaffoldMessenger.of(context)
-                    .showSnackBar(buildSnackbar(returnMessage!));
-              }
-            }, 0.8, 0.08),
-            SpacingConsts().mediumHeightBetweenFields(context),
-            CustomTextButton(
-                buttonWidth: 0.8,
-                buttonText: AuthStrings().returnToSelectPage,
-                onPressed: () async {
-                  context.read<AuthCubit>().deleteUser();
-                  Navigator.of(context).pushAndRemoveUntil(
-                      MaterialPageRoute(builder: (context) => SelectPage()),
-                      (Route<dynamic> routes) => false);
-                })
-          ],
+                  ScaffoldMessenger.of(context)
+                      .showSnackBar(buildSnackbar(returnMessage!));
+                }
+              }, 0.8, 0.08),
+              SpacingConsts().mediumHeightBetweenFields(context),
+              CustomTextButton(
+                  buttonWidth: 0.8,
+                  buttonText: AuthStrings().returnToSelectPage,
+                  onPressed: () async {
+                    context.read<AuthCubit>().deleteUser();
+                    Navigator.of(context).pushAndRemoveUntil(
+                        MaterialPageRoute(
+                            builder: (context) => const SelectPage()),
+                        (Route<dynamic> routes) => false);
+                  })
+            ],
+          ),
         );
       }
+
+      if (state is AuthAuthenticatedState) {
+        if (context.read<AuthCubit>().isStudent ?? true) {
+          return StudentMandatoryFields();
+        }
+      }
+
       return Container();
-    }));
+    });
   }
 }

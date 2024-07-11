@@ -5,6 +5,7 @@ class CommitteeList {
 }
 
 class User {
+  static const collUsers = "Users";
   static const fieldName = "name";
   static const fieldRoll = "roll";
   static const fieldEmail = "email";
