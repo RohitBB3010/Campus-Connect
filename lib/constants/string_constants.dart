@@ -40,4 +40,5 @@ class StudentMandatoryConsts {
   String enterEmail = "Enter email";
   String enterPhone = "Enter phone number";
   String selectCommittees = "Select Committees";
+  String registerButton = "Register";
 }
