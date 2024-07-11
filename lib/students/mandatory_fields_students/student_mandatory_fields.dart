@@ -1,4 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:campus_connecy/components/build_snackbar.dart';
+import 'package:campus_connecy/components/custom_button.dart';
 import 'package:campus_connecy/components/text_field.dart';
 import 'package:campus_connecy/constants/colors.dart';
 import 'package:campus_connecy/constants/spacingConsts.dart';
@@ -24,7 +26,6 @@ class StudentMandatoryFields extends StatelessWidget {
         builder: (context, state) {
           final mandatoryCubit = context.read<StudentMandatoryCubit>();
           emailController.text = state.email ?? '';
-          debugPrint(state.committeesList.toString());
 
           return SafeArea(
               child: Scaffold(
@@ -35,7 +36,7 @@ class StudentMandatoryFields extends StatelessWidget {
                 child: Stack(
                   children: [
                     Container(
-                      height: MediaQuery.of(context).size.height * 0.4,
+                      height: MediaQuery.of(context).size.height * 0.35,
                       width: MediaQuery.of(context).size.width,
                       decoration: const BoxDecoration(
                           image: DecorationImage(
@@ -45,9 +46,9 @@ class StudentMandatoryFields extends StatelessWidget {
                     Positioned(
                       left: 0,
                       right: 0,
-                      top: MediaQuery.of(context).size.height * 0.3,
+                      top: MediaQuery.of(context).size.height * 0.25,
                       child: Container(
-                        height: MediaQuery.of(context).size.height * 0.6,
+                        height: MediaQuery.of(context).size.height * 0.65,
                         decoration: BoxDecoration(
                           borderRadius: const BorderRadius.only(
                             topLeft: Radius.circular(25.0),
@@ -86,7 +87,7 @@ class StudentMandatoryFields extends StatelessWidget {
                             SpacingConsts().mediumHeightBetweenFields(context),
                             SizedBox(
                               width: MediaQuery.of(context).size.width * 0.8,
-                              child: CustomDropdown.multiSelect(
+                              child: CustomDropdown<String>.multiSelect(
                                   maxlines: 2,
                                   decoration: CustomDropdownDecoration(
                                       closedBorder:
@@ -100,9 +101,23 @@ class StudentMandatoryFields extends StatelessWidget {
                                           .toList()
                                       : [],
                                   onListChanged: (value) {
-                                    //mandatoryCubit.listUpdated();
+                                    mandatoryCubit.listUpdated(value);
                                   }),
-                            )
+                            ),
+                            SpacingConsts().mediumHeightBetweenFields(context),
+                            CustomButton(context, "Register", accent3, () {
+                              if (state.name == null ||
+                                  state.name == null && state.name!.isEmpty ||
+                                  state.phoneNumber == null ||
+                                  state.phoneNumber != null &&
+                                      state.phoneNumber!.isEmpty ||
+                                  state.committeesSubscribed == null ||
+                                  state.committeesSubscribed != null &&
+                                      state.committeesSubscribed!.isEmpty) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                    buildSnackbar("Please fill all fields"));
+                              }
+                            }, 0.8, 0.07)
                           ],
                         ),
                       ),
