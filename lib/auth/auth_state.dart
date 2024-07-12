@@ -2,8 +2,8 @@ import 'package:campus_connecy/models/committee.dart';
 import 'package:copy_with_extension/copy_with_extension.dart';
 
 part 'auth_state.g.dart';
-
-class AuthState {}
+ 
+abstract class AuthState {}
 
 class AuthInitialState extends AuthState {}
 

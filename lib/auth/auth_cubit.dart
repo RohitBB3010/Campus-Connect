@@ -17,6 +17,16 @@ class AuthCubit extends Cubit<AuthState> {
     }
   }
 
+  void getCurrentState() {
+    User? currentUser = FirebaseAuth.instance.currentUser;
+
+    if (currentUser != null) {
+      emit(AuthAuthenticatedState());
+    } else {
+      emit(AuthUnAuthenticatedState());
+    }
+  }
+
   bool? isStudent;
 
   bool? getIsStudent() {

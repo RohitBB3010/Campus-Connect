@@ -1,21 +1,106 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'committee.g.dart';
 
 @JsonSerializable()
-class CommitteeList {
+class Committee {
   String name;
-  String code;
-  String logo;
+  String? code;
+  String? logo;
+  String? password;
+  List<CommitteeMember>? member;
+  List<Event>? events;
+  List<Announcement>? announcements;
 
-  factory CommitteeList.fromJson(Map<String, dynamic> json) =>
-      _$CommitteeListFromJson(json);
+  factory Committee.fromJson(Map<String, dynamic> json) =>
+      _$CommitteeFromJson(json);
 
-  CommitteeList({
-    required this.name,
-    required this.code,
-    required this.logo,
-  });
+  Committee(
+      {required this.name,
+      this.code,
+      this.logo,
+      this.password,
+      this.member,
+      this.events,
+      this.announcements});
 
-  Map<String, dynamic> toJson() => _$CommitteeListToJson(this);
+  Map<String, dynamic> toJson() => _$CommitteeToJson(this);
+}
+
+@JsonSerializable()
+class CommitteeMember {
+  String? memberName;
+  String? memberRole;
+  String? joiningDate;
+
+  factory CommitteeMember.fromJson(Map<String, dynamic> json) =>
+      _$CommitteeMemberFromJson(json);
+
+  CommitteeMember({this.memberName, this.memberRole, this.joiningDate});
+
+  Map<String, dynamic> toJson() => _$CommitteeMemberToJson(this);
+}
+
+@JsonSerializable()
+class Event {
+  String? eventName;
+  String? eventDescription;
+  String? eventAddedDate;
+  @JsonKey(fromJson: tsToDateTime, toJson: datetimeToTs)
+  DateTime? eventStartDate;
+  @JsonKey(fromJson: tsToDateTime, toJson: datetimeToTs)
+  DateTime? eventEndDate;
+  String? contactPersonInfo;
+  String? eventVenue;
+  String? eventType;
+  List<String>? eventTags;
+  String? registrationLink;
+
+  factory Event.fromJson(Map<String, dynamic> json) => _$EventFromJson(json);
+
+  Event(
+      {this.eventName,
+      this.eventDescription,
+      this.eventAddedDate,
+      this.eventStartDate,
+      this.eventEndDate,
+      this.contactPersonInfo,
+      this.eventVenue,
+      this.eventType,
+      this.eventTags,
+      this.registrationLink});
+
+  Map<String, dynamic> toJson() => _$EventToJson(this);
+}
+
+@JsonSerializable()
+class Announcement {
+  String? title;
+  String? announcementContent;
+  @JsonKey(fromJson: tsToDateTime, toJson: datetimeToTs)
+  DateTime? date;
+  @JsonKey(fromJson: tsToDateTime, toJson: datetimeToTs)
+  DateTime? expirationDate;
+  String? tag;
+
+  factory Announcement.fromJson(Map<String, dynamic> json) =>
+      _$AnnouncementFromJson(json);
+
+  Announcement(
+      {this.title,
+      this.announcementContent,
+      this.date,
+      this.expirationDate,
+      this.tag});
+
+  Map<String, dynamic> toJson() => _$AnnouncementToJson(this);
+}
+
+Timestamp? datetimeToTs(DateTime? date) {
+  return date != null ? Timestamp.fromDate(date) : null;
+}
+
+DateTime? tsToDateTime(Timestamp? ts) {
+  return ts?.toDate();
 }

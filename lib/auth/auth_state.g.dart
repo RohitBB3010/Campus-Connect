@@ -13,12 +13,12 @@ abstract class _$AuthUnAuthenticatedStateCWProxy {
 
   AuthUnAuthenticatedState confirmPassword(String? confirmPassword);
 
-  AuthUnAuthenticatedState selectedCommittee(CommitteeList? selectedCommittee);
+  AuthUnAuthenticatedState selectedCommittee(InvalidType selectedCommittee);
 
   AuthUnAuthenticatedState committeeCode(String? committeeCode);
 
   AuthUnAuthenticatedState availableCommittes(
-      List<CommitteeList>? availableCommittes);
+      List<InvalidType>? availableCommittes);
 
   /// This function **does support** nullification of nullable fields. All `null` values passed to `non-nullable` fields will be ignored. You can also use `AuthUnAuthenticatedState(...).copyWith.fieldName(...)` to override fields one at a time with nullification support.
   ///
@@ -30,9 +30,9 @@ abstract class _$AuthUnAuthenticatedStateCWProxy {
     String? email,
     String? password,
     String? confirmPassword,
-    CommitteeList? selectedCommittee,
+    InvalidType? selectedCommittee,
     String? committeeCode,
-    List<CommitteeList>? availableCommittes,
+    List<InvalidType>? availableCommittes,
   });
 }
 
@@ -55,8 +55,7 @@ class _$AuthUnAuthenticatedStateCWProxyImpl
       this(confirmPassword: confirmPassword);
 
   @override
-  AuthUnAuthenticatedState selectedCommittee(
-          CommitteeList? selectedCommittee) =>
+  AuthUnAuthenticatedState selectedCommittee(InvalidType selectedCommittee) =>
       this(selectedCommittee: selectedCommittee);
 
   @override
@@ -65,7 +64,7 @@ class _$AuthUnAuthenticatedStateCWProxyImpl
 
   @override
   AuthUnAuthenticatedState availableCommittes(
-          List<CommitteeList>? availableCommittes) =>
+          List<InvalidType>? availableCommittes) =>
       this(availableCommittes: availableCommittes);
 
   @override
@@ -97,10 +96,11 @@ class _$AuthUnAuthenticatedStateCWProxyImpl
           ? _value.confirmPassword
           // ignore: cast_nullable_to_non_nullable
           : confirmPassword as String?,
-      selectedCommittee: selectedCommittee == const $CopyWithPlaceholder()
+      selectedCommittee: selectedCommittee == const $CopyWithPlaceholder() ||
+              selectedCommittee == null
           ? _value.selectedCommittee
           // ignore: cast_nullable_to_non_nullable
-          : selectedCommittee as CommitteeList?,
+          : selectedCommittee as InvalidType,
       committeeCode: committeeCode == const $CopyWithPlaceholder()
           ? _value.committeeCode
           // ignore: cast_nullable_to_non_nullable
@@ -108,7 +108,7 @@ class _$AuthUnAuthenticatedStateCWProxyImpl
       availableCommittes: availableCommittes == const $CopyWithPlaceholder()
           ? _value.availableCommittes
           // ignore: cast_nullable_to_non_nullable
-          : availableCommittes as List<CommitteeList>?,
+          : availableCommittes as List<InvalidType>?,
     );
   }
 }

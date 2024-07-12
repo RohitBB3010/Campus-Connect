@@ -11,3 +11,14 @@ class UserFBConsts {
   static const fieldEmail = "email";
   static const fieldCommittees = "committeeSubs";
 }
+
+class CommitteeConsts {
+  static const collCommittee = "Committee";
+  static const fieldName = "name";
+  static const fieldLogo = "logo";
+  static const fieldCode = "code";
+  static const fieldPassword = "password";
+  static const fieldMembers = "members";
+  static const committeeEvents = "events";
+  static const committeeAnnouncements = "announcements";
+}

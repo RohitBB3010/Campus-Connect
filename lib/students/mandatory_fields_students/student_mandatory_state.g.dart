@@ -6,75 +6,76 @@ part of 'student_mandatory_state.dart';
 // CopyWithGenerator
 // **************************************************************************
 
-abstract class _$StudentMandatoryStateCWProxy {
-  StudentMandatoryState name(String? name);
+abstract class _$StudentMandatoryFillingStateCWProxy {
+  StudentMandatoryFillingState name(String? name);
 
-  StudentMandatoryState email(String? email);
+  StudentMandatoryFillingState email(String? email);
 
-  StudentMandatoryState committeesSubscribed(
+  StudentMandatoryFillingState committeesSubscribed(
       List<String>? committeesSubscribed);
 
-  StudentMandatoryState phoneNumber(String? phoneNumber);
+  StudentMandatoryFillingState phoneNumber(String? phoneNumber);
 
-  StudentMandatoryState committeesList(List<CommitteeList>? committeesList);
+  StudentMandatoryFillingState committeesList(List<Committee>? committeesList);
 
-  /// This function **does support** nullification of nullable fields. All `null` values passed to `non-nullable` fields will be ignored. You can also use `StudentMandatoryState(...).copyWith.fieldName(...)` to override fields one at a time with nullification support.
+  /// This function **does support** nullification of nullable fields. All `null` values passed to `non-nullable` fields will be ignored. You can also use `StudentMandatoryFillingState(...).copyWith.fieldName(...)` to override fields one at a time with nullification support.
   ///
   /// Usage
   /// ```dart
-  /// StudentMandatoryState(...).copyWith(id: 12, name: "My name")
+  /// StudentMandatoryFillingState(...).copyWith(id: 12, name: "My name")
   /// ````
-  StudentMandatoryState call({
+  StudentMandatoryFillingState call({
     String? name,
     String? email,
     List<String>? committeesSubscribed,
     String? phoneNumber,
-    List<CommitteeList>? committeesList,
+    List<Committee>? committeesList,
   });
 }
 
-/// Proxy class for `copyWith` functionality. This is a callable class and can be used as follows: `instanceOfStudentMandatoryState.copyWith(...)`. Additionally contains functions for specific fields e.g. `instanceOfStudentMandatoryState.copyWith.fieldName(...)`
-class _$StudentMandatoryStateCWProxyImpl
-    implements _$StudentMandatoryStateCWProxy {
-  const _$StudentMandatoryStateCWProxyImpl(this._value);
+/// Proxy class for `copyWith` functionality. This is a callable class and can be used as follows: `instanceOfStudentMandatoryFillingState.copyWith(...)`. Additionally contains functions for specific fields e.g. `instanceOfStudentMandatoryFillingState.copyWith.fieldName(...)`
+class _$StudentMandatoryFillingStateCWProxyImpl
+    implements _$StudentMandatoryFillingStateCWProxy {
+  const _$StudentMandatoryFillingStateCWProxyImpl(this._value);
 
-  final StudentMandatoryState _value;
-
-  @override
-  StudentMandatoryState name(String? name) => this(name: name);
+  final StudentMandatoryFillingState _value;
 
   @override
-  StudentMandatoryState email(String? email) => this(email: email);
+  StudentMandatoryFillingState name(String? name) => this(name: name);
 
   @override
-  StudentMandatoryState committeesSubscribed(
+  StudentMandatoryFillingState email(String? email) => this(email: email);
+
+  @override
+  StudentMandatoryFillingState committeesSubscribed(
           List<String>? committeesSubscribed) =>
       this(committeesSubscribed: committeesSubscribed);
 
   @override
-  StudentMandatoryState phoneNumber(String? phoneNumber) =>
+  StudentMandatoryFillingState phoneNumber(String? phoneNumber) =>
       this(phoneNumber: phoneNumber);
 
   @override
-  StudentMandatoryState committeesList(List<CommitteeList>? committeesList) =>
+  StudentMandatoryFillingState committeesList(
+          List<Committee>? committeesList) =>
       this(committeesList: committeesList);
 
   @override
 
-  /// This function **does support** nullification of nullable fields. All `null` values passed to `non-nullable` fields will be ignored. You can also use `StudentMandatoryState(...).copyWith.fieldName(...)` to override fields one at a time with nullification support.
+  /// This function **does support** nullification of nullable fields. All `null` values passed to `non-nullable` fields will be ignored. You can also use `StudentMandatoryFillingState(...).copyWith.fieldName(...)` to override fields one at a time with nullification support.
   ///
   /// Usage
   /// ```dart
-  /// StudentMandatoryState(...).copyWith(id: 12, name: "My name")
+  /// StudentMandatoryFillingState(...).copyWith(id: 12, name: "My name")
   /// ````
-  StudentMandatoryState call({
+  StudentMandatoryFillingState call({
     Object? name = const $CopyWithPlaceholder(),
     Object? email = const $CopyWithPlaceholder(),
     Object? committeesSubscribed = const $CopyWithPlaceholder(),
     Object? phoneNumber = const $CopyWithPlaceholder(),
     Object? committeesList = const $CopyWithPlaceholder(),
   }) {
-    return StudentMandatoryState(
+    return StudentMandatoryFillingState(
       name: name == const $CopyWithPlaceholder()
           ? _value.name
           // ignore: cast_nullable_to_non_nullable
@@ -94,14 +95,15 @@ class _$StudentMandatoryStateCWProxyImpl
       committeesList: committeesList == const $CopyWithPlaceholder()
           ? _value.committeesList
           // ignore: cast_nullable_to_non_nullable
-          : committeesList as List<CommitteeList>?,
+          : committeesList as List<Committee>?,
     );
   }
 }
 
-extension $StudentMandatoryStateCopyWith on StudentMandatoryState {
-  /// Returns a callable class that can be used as follows: `instanceOfStudentMandatoryState.copyWith(...)` or like so:`instanceOfStudentMandatoryState.copyWith.fieldName(...)`.
+extension $StudentMandatoryFillingStateCopyWith
+    on StudentMandatoryFillingState {
+  /// Returns a callable class that can be used as follows: `instanceOfStudentMandatoryFillingState.copyWith(...)` or like so:`instanceOfStudentMandatoryFillingState.copyWith.fieldName(...)`.
   // ignore: library_private_types_in_public_api
-  _$StudentMandatoryStateCWProxy get copyWith =>
-      _$StudentMandatoryStateCWProxyImpl(this);
+  _$StudentMandatoryFillingStateCWProxy get copyWith =>
+      _$StudentMandatoryFillingStateCWProxyImpl(this);
 }
