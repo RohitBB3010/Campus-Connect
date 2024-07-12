@@ -34,10 +34,6 @@ class AuthCubit extends Cubit<AuthState> {
     return isStudent;
   }
 
-  void setIsStudent(bool setValue) {
-    isStudent = setValue;
-  }
-
   void checkSignIn() {
     User? user = FirebaseAuth.instance.currentUser;
 
