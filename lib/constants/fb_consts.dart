@@ -9,5 +9,5 @@ class UserFBConsts {
   static const fieldName = "name";
   static const fieldPhone = "phoneNumber";
   static const fieldEmail = "email";
-  static const fieldCommittees = "committees";
+  static const fieldCommittees = "committeeSubs";
 }

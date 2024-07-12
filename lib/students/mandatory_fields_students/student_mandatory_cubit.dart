@@ -19,12 +19,17 @@ class StudentMandatoryCubit extends Cubit<StudentMandatoryState> {
   }
 
   Future<void> updateUserDocument() async {
-    List<CommitteesSubscribed> subList = [];
+    List<dynamic> subList = [];
 
-    if (state.committeesList != null) {
+    if (state.committeesList != null && state.committeesSubscribed != null) {
       for (int i = 0; i < state.committeesSubscribed!.length; i++) {
-        CommitteeList comm = state.committeesList.firstWhere(
-            (committee) => committee.name == state.committeesSubscribed[i]);
+        CommitteeList comm = state.committeesList!
+            .firstWhere((item) => item.name == state.committeesList![i].name);
+
+        CommitteesSubscribed subs = CommitteesSubscribed(
+            committeeName: comm.name, dateSubscribed: DateTime.now());
+
+        subList.add(subs.toJson());
       }
     }
 
@@ -43,7 +48,8 @@ class StudentMandatoryCubit extends Cubit<StudentMandatoryState> {
           .update({
         UserFBConsts.fieldEmail: state.email,
         UserFBConsts.fieldName: state.name,
-        UserFBConsts.fieldPhone: state.phoneNumber
+        UserFBConsts.fieldPhone: state.phoneNumber,
+        UserFBConsts.fieldCommittees: subList
       });
     }
   }

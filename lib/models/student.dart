@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'student.g.dart';
@@ -20,7 +21,8 @@ class Student {
 @JsonSerializable()
 class CommitteesSubscribed {
   String committeeName;
-  String dateSubscribed;
+  @JsonKey(fromJson: tsToDateTime, toJson: datetimeToTs)
+  DateTime dateSubscribed;
 
   factory CommitteesSubscribed.fromJson(Map<String, dynamic> json) =>
       _$CommitteesSubscribedFromJson(json);
@@ -29,4 +31,12 @@ class CommitteesSubscribed {
       {required this.committeeName, required this.dateSubscribed});
 
   Map<String, dynamic> toJson() => _$CommitteesSubscribedToJson(this);
+}
+
+Timestamp datetimeToTs(DateTime date) {
+  return Timestamp.fromDate(date);
+}
+
+DateTime tsToDateTime(Timestamp ts) {
+  return ts.toDate();
 }

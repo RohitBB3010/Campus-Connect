@@ -26,12 +26,12 @@ CommitteesSubscribed _$CommitteesSubscribedFromJson(
         Map<String, dynamic> json) =>
     CommitteesSubscribed(
       committeeName: json['committeeName'] as String,
-      dateSubscribed: json['dateSubscribed'] as String,
+      dateSubscribed: tsToDateTime(json['dateSubscribed'] as Timestamp),
     );
 
 Map<String, dynamic> _$CommitteesSubscribedToJson(
         CommitteesSubscribed instance) =>
     <String, dynamic>{
       'committeeName': instance.committeeName,
-      'dateSubscribed': instance.dateSubscribed,
+      'dateSubscribed': datetimeToTs(instance.dateSubscribed),
     };
