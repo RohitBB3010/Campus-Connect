@@ -77,20 +77,26 @@ class AuthCubit extends Cubit<AuthState> {
     return studentDocuments.docs.isNotEmpty;
   }
 
-  Future<bool> verifyIsMember(String email, String committeeCode) async {
+  Future<bool?> verifyIsMember(String email, String committeeCode) async {
+    String code = committeeCode.split('@').first.toString();
+
     var document = await FirebaseFirestore.instance
         .collection(CommitteeConsts.collCommittee)
-        .where(CommitteeConsts.fieldCode, isEqualTo: committeeCode)
+        .doc(code)
         .get();
 
-    List<CommitteeMember>? list =
-        Committee.fromJson(document.docs.first.data()).member;
-
-    if (list == null) {
+    if (document.data() == null) {
       return false;
     } else {
-      bool isMember = list.any((member) => member.memberEmail == email);
-      return isMember;
+      List<CommitteeMember>? members =
+          Committee.fromJson(document.data()!).member;
+
+      if (members == null) {
+        return false;
+      } else {
+        bool isMember = members.any((member) => member.memberEmail == email);
+        return isMember;
+      }
     }
   }
 

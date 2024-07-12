@@ -16,6 +16,7 @@ import 'package:campus_connecy/students/student_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+// ignore: must_be_immutable
 class LoginPage extends StatelessWidget {
   LoginPage({super.key, this.committeeCode});
   String? committeeCode;
@@ -63,6 +64,14 @@ class LoginPage extends StatelessWidget {
                     } else {
                       authCubit.signIn(state.email!, state.password!);
                     }
+                  } else {
+                    bool? isMember = await authCubit.verifyIsMember(
+                        state.email!, committeeCode!);
+
+                    if (isMember != null && !isMember) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                          buildSnackbar(AuthStrings().notAMember));
+                    }
                   }
                 }
               }, 0.8, 0.07),
@@ -75,7 +84,8 @@ class LoginPage extends StatelessWidget {
                   onPressed: () {
                     Navigator.pushAndRemoveUntil(
                         context,
-                        MaterialPageRoute(builder: (context) => SignUpPage()),
+                        MaterialPageRoute(
+                            builder: (context) => const SignUpPage()),
                         (Route<dynamic> routes) => false);
                   }),
               SpacingConsts().smallHeightBetweenFields(context),
@@ -84,7 +94,8 @@ class LoginPage extends StatelessWidget {
                   buttonText: AuthStrings().returnToSelectPage,
                   onPressed: () {
                     Navigator.of(context).pushAndRemoveUntil(
-                        MaterialPageRoute(builder: (context) => SelectPage()),
+                        MaterialPageRoute(
+                            builder: (context) => const SelectPage()),
                         (Route<dynamic> route) => false);
                   })
             ],
@@ -104,24 +115,3 @@ class LoginPage extends StatelessWidget {
     );
   }
 }
-
-// if (context.read<AuthCubit>().isStudent != null &&
-//                     context.read<AuthCubit>().isStudent!) {
-//                   if (state.email != null) {
-//                     bool exists = await context
-//                         .read<AuthCubit>()
-//                         .checkUserExists(state.email!);
-
-//                     if (!exists) {
-//                       ScaffoldMessenger.of(context).showSnackBar(
-//                           buildSnackbar(AuthStrings().accountDoesNotExist));
-//                     }
-
-//                     context
-//                         .read<AuthCubit>()
-//                         .signIn(state.email!, state.password!);
-//                   }
-//                 }
-
-//                 if (context.read<AuthCubit>().isStudent != null &&
-//                     !context.read<AuthCubit>().isStudent!) {}

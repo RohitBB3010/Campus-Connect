@@ -32,6 +32,8 @@ class AuthStrings {
   String passwordsMismatch = "Passwords do not match";
   String fillFields = "Please fill all fields";
   String newMember = "New member? Sign up here";
+  String notAMember =
+      "It seems you are not a member of this committee. Please sign up first";
 }
 
 class StudentMandatoryConsts {

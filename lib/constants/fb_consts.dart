@@ -13,12 +13,12 @@ class StudentFBConsts {
 }
 
 class CommitteeConsts {
-  static const collCommittee = "Committee";
+  static const collCommittee = "Committees";
   static const fieldName = "name";
   static const fieldLogo = "logo";
   static const fieldCode = "code";
   static const fieldPassword = "password";
-  static const fieldMembers = "members";
+  static const fieldMembers = "member";
   static const committeeEvents = "events";
   static const committeeAnnouncements = "announcements";
 }
