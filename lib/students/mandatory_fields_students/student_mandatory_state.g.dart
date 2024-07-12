@@ -12,7 +12,7 @@ abstract class _$StudentMandatoryFillingStateCWProxy {
   StudentMandatoryFillingState email(String? email);
 
   StudentMandatoryFillingState committeesSubscribed(
-      List<String>? committeesSubscribed);
+      List<String?>? committeesSubscribed);
 
   StudentMandatoryFillingState phoneNumber(String? phoneNumber);
 
@@ -27,7 +27,7 @@ abstract class _$StudentMandatoryFillingStateCWProxy {
   StudentMandatoryFillingState call({
     String? name,
     String? email,
-    List<String>? committeesSubscribed,
+    List<String?>? committeesSubscribed,
     String? phoneNumber,
     List<Committee>? committeesList,
   });
@@ -48,7 +48,7 @@ class _$StudentMandatoryFillingStateCWProxyImpl
 
   @override
   StudentMandatoryFillingState committeesSubscribed(
-          List<String>? committeesSubscribed) =>
+          List<String?>? committeesSubscribed) =>
       this(committeesSubscribed: committeesSubscribed);
 
   @override
@@ -87,7 +87,7 @@ class _$StudentMandatoryFillingStateCWProxyImpl
       committeesSubscribed: committeesSubscribed == const $CopyWithPlaceholder()
           ? _value.committeesSubscribed
           // ignore: cast_nullable_to_non_nullable
-          : committeesSubscribed as List<String>?,
+          : committeesSubscribed as List<String?>?,
       phoneNumber: phoneNumber == const $CopyWithPlaceholder()
           ? _value.phoneNumber
           // ignore: cast_nullable_to_non_nullable

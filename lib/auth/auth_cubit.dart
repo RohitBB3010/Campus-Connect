@@ -1,4 +1,5 @@
 import 'package:campus_connecy/auth/auth_state.dart';
+import 'package:campus_connecy/constants/fb_consts.dart';
 import 'package:campus_connecy/models/committee.dart';
 import 'package:campus_connecy/models/student.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -46,7 +47,7 @@ class AuthCubit extends Cubit<AuthState> {
   }
 
   void getCommitteesList() async {
-    List<CommitteeList> committeList = [];
+    List<Committee> committeList = [];
 
     var document = await FirebaseFirestore.instance
         .collection('back-end_data')
@@ -56,7 +57,7 @@ class AuthCubit extends Cubit<AuthState> {
     Map<String, dynamic>? documentData = document.data();
 
     documentData?.values.forEach((committeeJson) {
-      CommitteeList current = CommitteeList.fromJson(committeeJson);
+      Committee current = Committee.fromJson(committeeJson);
       committeList.add(current);
     });
 
@@ -66,14 +67,31 @@ class AuthCubit extends Cubit<AuthState> {
     );
   }
 
-  Future<bool> checkUserExists(String email) async {
+  Future<bool> checkStudentExists(String email) async {
     var studentDocuments = await FirebaseFirestore.instance
-        .collection('Users')
-        .where('email', isEqualTo: email)
+        .collection(StudentFBConsts.collUsers)
+        .where(StudentFBConsts.fieldEmail, isEqualTo: email)
         .limit(1)
         .get();
 
     return studentDocuments.docs.isNotEmpty;
+  }
+
+  Future<bool> verifyIsMember(String email, String committeeCode) async {
+    var document = await FirebaseFirestore.instance
+        .collection(CommitteeConsts.collCommittee)
+        .where(CommitteeConsts.fieldCode, isEqualTo: committeeCode)
+        .get();
+
+    List<CommitteeMember>? list =
+        Committee.fromJson(document.docs.first.data()).member;
+
+    if (list == null) {
+      return false;
+    } else {
+      bool isMember = list.any((member) => member.memberEmail == email);
+      return isMember;
+    }
   }
 
   Future<String> verifyUser(String email) async {
@@ -133,8 +151,6 @@ class AuthCubit extends Cubit<AuthState> {
       UserCredential userCred = await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: email, password: password);
 
-      bool isStudentData = true;
-
       emit(AuthAuthenticatedState());
       debugPrint("Emitted AuthAuthenticatedState");
     } catch (error) {
@@ -156,7 +172,7 @@ class AuthCubit extends Cubit<AuthState> {
     emit(AuthUnAuthenticatedState());
   }
 
-  void committeeChanged(CommitteeList committee) {
+  void committeeChanged(Committee committee) {
     emit(
       (state as AuthUnAuthenticatedState)
           .copyWith(selectedCommittee: committee),

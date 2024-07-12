@@ -4,7 +4,7 @@ class CommitteeListFBConsts {
   static const committeeCode = "code";
 }
 
-class UserFBConsts {
+class StudentFBConsts {
   static const collUsers = "Users";
   static const fieldName = "name";
   static const fieldPhone = "phoneNumber";

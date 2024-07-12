@@ -10,8 +10,8 @@ class StudentMandatoryFillingState extends StudentMandatoryState {
   String? name;
   String? email;
   String? phoneNumber;
-  List<String>? committeesSubscribed;
-  List<CommitteeList>? committeesList;
+  List<String?>? committeesSubscribed;
+  List<Committee>? committeesList;
 
   StudentMandatoryFillingState(
       {this.name,

@@ -120,7 +120,10 @@ class CommitteeCodePage extends StatelessWidget {
                         state.committeeCode == state.selectedCommittee!.code) {
                       Navigator.of(context).pushAndRemoveUntil(
                           MaterialPageRoute(
-                              builder: (context) => const LoginPage()),
+                              builder: (context) => LoginPage(
+                                    committeeCode:
+                                        state.selectedCommittee!.code,
+                                  )),
                           (Route<dynamic> routes) => false);
                     }
                   }
@@ -145,11 +148,11 @@ class CommitteeCodePage extends StatelessWidget {
     );
   }
 
-  DropdownMenuItem item(CommitteeList current) {
+  DropdownMenuItem item(Committee current) {
     return DropdownMenuItem(
         value: current,
         child: AutoSizeText(
-          current.name,
+          current.name!,
           maxLines: 2,
           wrapWords: true,
           overflow: TextOverflow.ellipsis,

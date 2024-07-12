@@ -51,8 +51,8 @@ class StudentMandatoryCubit extends Cubit<StudentMandatoryState> {
     }
 
     var document = await FirebaseFirestore.instance
-        .collection(UserFBConsts.collUsers)
-        .where(UserFBConsts.fieldEmail,
+        .collection(StudentFBConsts.collUsers)
+        .where(StudentFBConsts.fieldEmail,
             isEqualTo: (state as StudentMandatoryFillingState).email)
         .get();
 
@@ -61,14 +61,15 @@ class StudentMandatoryCubit extends Cubit<StudentMandatoryState> {
       debugPrint(id);
 
       await FirebaseFirestore.instance
-          .collection(UserFBConsts.collUsers)
+          .collection(StudentFBConsts.collUsers)
           .doc(id)
           .update({
-        UserFBConsts.fieldEmail: (state as StudentMandatoryFillingState).email,
-        UserFBConsts.fieldName: (state as StudentMandatoryFillingState).name,
-        UserFBConsts.fieldPhone:
+        StudentFBConsts.fieldEmail:
+            (state as StudentMandatoryFillingState).email,
+        StudentFBConsts.fieldName: (state as StudentMandatoryFillingState).name,
+        StudentFBConsts.fieldPhone:
             (state as StudentMandatoryFillingState).phoneNumber,
-        UserFBConsts.fieldCommittees: subList
+        StudentFBConsts.fieldCommittees: subList
       });
     }
 
@@ -107,14 +108,14 @@ class StudentMandatoryCubit extends Cubit<StudentMandatoryState> {
   }
 
   void listUpdated(List<String> newList) {
-    List<String> list = [];
+    List<String?> list = [];
 
     for (int i = 0; i < newList.length; i++) {
-      // String comm = (state as StudentMandatoryFillingState)
-      //     .committeesList!
-      //     .singleWhere((committee) => committee.name == newList[i])
-      //     .code;
-      //list.add(comm);
+      String? comm = (state as StudentMandatoryFillingState)
+          .committeesList!
+          .singleWhere((committee) => committee.name == newList[i])
+          .code;
+      list.add(comm);
     }
 
     emit((state as StudentMandatoryFillingState)

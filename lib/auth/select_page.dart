@@ -61,7 +61,7 @@ class SelectPage extends StatelessWidget {
                 CustomButton(context, AuthStrings().studentAuth, primary1, () {
                   context.read<AuthCubit>().setIsStudent(true);
                   Navigator.of(context).pushAndRemoveUntil(
-                    MaterialPageRoute(builder: (context) => const LoginPage()),
+                    MaterialPageRoute(builder: (context) => LoginPage()),
                     (Route<dynamic> route) => false,
                   );
                 }, 0.6, 0.08),

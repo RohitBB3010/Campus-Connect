@@ -17,13 +17,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class LoginPage extends StatelessWidget {
-  const LoginPage({super.key});
+  LoginPage({super.key, this.committeeCode});
+  String? committeeCode;
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<AuthCubit, AuthState>(
       builder: (context, state) {
         if (state is AuthUnAuthenticatedState) {
+          final authCubit = context.read<AuthCubit>();
+
           return AuthSkeleton(
               bodyContent: Column(
             children: [
@@ -46,19 +49,21 @@ class LoginPage extends StatelessWidget {
                   onChanged: context.read<AuthCubit>().paswordChanged),
               SpacingConsts().largeHeightBetweenFields(context),
               CustomButton(context, AuthStrings().signIn, accent3, () async {
-                if (state.email != null) {
-                  bool exists = await context
-                      .read<AuthCubit>()
-                      .checkUserExists(state.email!);
+                if (state.email == null || state.password == null) {
+                  ScaffoldMessenger.of(context)
+                      .showSnackBar(buildSnackbar(AuthStrings().fillFields));
+                } else {
+                  if (authCubit.isStudent != null && authCubit.isStudent!) {
+                    bool exists =
+                        await authCubit.checkStudentExists(state.email!);
 
-                  if (!exists) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                        buildSnackbar(AuthStrings().accountDoesNotExist));
+                    if (!exists) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                          buildSnackbar(AuthStrings().accountDoesNotExist));
+                    } else {
+                      authCubit.signIn(state.email!, state.password!);
+                    }
                   }
-
-                  context
-                      .read<AuthCubit>()
-                      .signIn(state.email!, state.password!);
                 }
               }, 0.8, 0.07),
               SpacingConsts().smallHeightBetweenFields(context),
@@ -99,3 +104,24 @@ class LoginPage extends StatelessWidget {
     );
   }
 }
+
+// if (context.read<AuthCubit>().isStudent != null &&
+//                     context.read<AuthCubit>().isStudent!) {
+//                   if (state.email != null) {
+//                     bool exists = await context
+//                         .read<AuthCubit>()
+//                         .checkUserExists(state.email!);
+
+//                     if (!exists) {
+//                       ScaffoldMessenger.of(context).showSnackBar(
+//                           buildSnackbar(AuthStrings().accountDoesNotExist));
+//                     }
+
+//                     context
+//                         .read<AuthCubit>()
+//                         .signIn(state.email!, state.password!);
+//                   }
+//                 }
+
+//                 if (context.read<AuthCubit>().isStudent != null &&
+//                     !context.read<AuthCubit>().isStudent!) {}
