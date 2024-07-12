@@ -28,11 +28,7 @@ class AuthCubit extends Cubit<AuthState> {
     }
   }
 
-  bool? isStudent;
-
-  bool? getIsStudent() {
-    return isStudent;
-  }
+  late bool isStudent = false;
 
   void checkSignIn() {
     User? user = FirebaseAuth.instance.currentUser;
@@ -116,7 +112,11 @@ class AuthCubit extends Cubit<AuthState> {
     return returnMessage;
   }
 
-  Future<String?> setPassword(String password) async {
+  void signInMember() {
+    emit(AuthAuthenticatedState());
+  }
+
+  Future<String?> setPasswordStudent(String password) async {
     User? user = await FirebaseAuth.instance.currentUser;
 
     if (user == null) {

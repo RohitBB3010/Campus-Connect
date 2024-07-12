@@ -34,9 +34,10 @@ class AuthStrings {
   String newMember = "New member? Sign up here";
   String notAMember =
       "It seems you are not a member of this committee. Please sign up first";
+  String signInAsMember = "Sign Up As Member";
 }
 
-class StudentMandatoryConsts {
+class MandatoryConsts {
   String register = "Register with us";
   String enterName = "Enter name";
   String enterEmail = "Enter email";

@@ -64,7 +64,7 @@ class StudentMandatoryFields extends StatelessWidget {
                           children: [
                             SpacingConsts().mediumHeightBetweenFields(context),
                             AutoSizeText(
-                              StudentMandatoryConsts().register,
+                              MandatoryConsts().register,
                               maxLines: 1,
                               style: const TextStyle(fontSize: 40),
                             ),
@@ -72,28 +72,27 @@ class StudentMandatoryFields extends StatelessWidget {
                             CustomTextField(
                                 icon: const Icon(Icons.person_2_sharp),
                                 fieldWidth: 0.8,
-                                hintText: StudentMandatoryConsts().enterName,
+                                hintText: MandatoryConsts().enterName,
                                 onChanged: mandatoryCubit.nameChanged),
                             SpacingConsts().mediumHeightBetweenFields(context),
                             CustomTextField(
                                 icon: const Icon(Icons.email_outlined),
                                 controller: emailController,
                                 fieldWidth: 0.8,
-                                hintText: StudentMandatoryConsts().enterName,
+                                hintText: MandatoryConsts().enterName,
                                 onChanged: mandatoryCubit.nameChanged),
                             SpacingConsts().mediumHeightBetweenFields(context),
                             CustomTextField(
                               icon: const Icon(Icons.phone_android),
                               fieldWidth: 0.8,
-                              hintText: StudentMandatoryConsts().enterPhone,
+                              hintText: MandatoryConsts().enterPhone,
                               onChanged: mandatoryCubit.phoneNumberChanged,
                             ),
                             SpacingConsts().mediumHeightBetweenFields(context),
                             SizedBox(
                               width: MediaQuery.of(context).size.width * 0.8,
                               child: CustomDropdown<String>.multiSelect(
-                                  hintText:
-                                      StudentMandatoryConsts().selectCommittees,
+                                  hintText: MandatoryConsts().selectCommittees,
                                   maxlines: 2,
                                   decoration: CustomDropdownDecoration(
                                       closedBorder:
@@ -111,10 +110,8 @@ class StudentMandatoryFields extends StatelessWidget {
                                   }),
                             ),
                             SpacingConsts().mediumHeightBetweenFields(context),
-                            CustomButton(
-                                context,
-                                StudentMandatoryConsts().registerButton,
-                                accent3, () {
+                            CustomButton(context,
+                                MandatoryConsts().registerButton, accent3, () {
                               if (state.name == null ||
                                   state.name!.isEmpty ||
                                   state.phoneNumber == null ||

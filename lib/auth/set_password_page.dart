@@ -4,6 +4,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:campus_connecy/auth/auth_cubit.dart';
 import 'package:campus_connecy/auth/auth_state.dart';
 import 'package:campus_connecy/auth/select_page.dart';
+import 'package:campus_connecy/committees/mandatory_fields_committee/mandatory_committe_page.dart';
 import 'package:campus_connecy/components/auth_skeleton.dart';
 import 'package:campus_connecy/components/build_snackbar.dart';
 import 'package:campus_connecy/components/custom_button.dart';
@@ -22,6 +23,8 @@ class SetPasswordPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<AuthCubit, AuthState>(builder: (context, state) {
+      final authCubit = context.read<AuthCubit>();
+
       if (state is AuthUnAuthenticatedState) {
         return AuthSkeleton(
           bodyContent: Column(
@@ -36,12 +39,12 @@ class SetPasswordPage extends StatelessWidget {
               CustomTextField(
                   fieldWidth: 0.8,
                   hintText: AuthStrings().setPassword,
-                  onChanged: context.read<AuthCubit>().paswordChanged),
+                  onChanged: authCubit.paswordChanged),
               SpacingConsts().mediumHeightBetweenFields(context),
               CustomTextField(
                   fieldWidth: 0.8,
                   hintText: AuthStrings().confirmPassword,
-                  onChanged: context.read<AuthCubit>().confirmPasswordChanged),
+                  onChanged: authCubit.confirmPasswordChanged),
               SpacingConsts().largeHeightBetweenFields(context),
               CustomButton(context, AuthStrings().setPassword, accent3,
                   () async {
@@ -56,12 +59,15 @@ class SetPasswordPage extends StatelessWidget {
                 }
 
                 if (state.password != null && state.confirmPassword != null) {
-                  String? returnMessage = await context
-                      .read<AuthCubit>()
-                      .setPassword(state.password!);
+                  if (authCubit.isStudent!) {
+                    String? returnMessage =
+                        await authCubit.setPasswordStudent(state.password!);
 
-                  ScaffoldMessenger.of(context)
-                      .showSnackBar(buildSnackbar(returnMessage!));
+                    ScaffoldMessenger.of(context)
+                        .showSnackBar(buildSnackbar(returnMessage!));
+                  } else {
+                    authCubit.signInMember();
+                  }
                 }
               }, 0.8, 0.08),
               SpacingConsts().mediumHeightBetweenFields(context),
@@ -83,6 +89,8 @@ class SetPasswordPage extends StatelessWidget {
       if (state is AuthAuthenticatedState) {
         if (context.read<AuthCubit>().isStudent ?? true) {
           return StudentMandatoryFields();
+        } else {
+          return MandatoryCommittePage();
         }
       }
 
@@ -90,3 +98,22 @@ class SetPasswordPage extends StatelessWidget {
     });
   }
 }
+
+// if (state.password == null || state.confirmPassword == null) {
+//                   ScaffoldMessenger.of(context)
+//                       .showSnackBar(buildSnackbar(AuthStrings().fillFields));
+//                 }
+
+//                 if (state.password != state.confirmPassword) {
+//                   ScaffoldMessenger.of(context).showSnackBar(
+//                       buildSnackbar(AuthStrings().passwordsMismatch));
+//                 }
+
+//                 if (state.password != null && state.confirmPassword != null) {
+//                   String? returnMessage = await context
+//                       .read<AuthCubit>()
+//                       .setPassword(state.password!);
+
+//                   ScaffoldMessenger.of(context)
+//                       .showSnackBar(buildSnackbar(returnMessage!));
+//                 }

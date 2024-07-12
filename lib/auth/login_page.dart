@@ -78,7 +78,7 @@ class LoginPage extends StatelessWidget {
               SpacingConsts().smallHeightBetweenFields(context),
               CustomTextButton(
                   buttonWidth: 0.8,
-                  buttonText: context.read<AuthCubit>().getIsStudent()!
+                  buttonText: context.read<AuthCubit>().isClosed
                       ? AuthStrings().studentSignUp
                       : AuthStrings().memberSignUp,
                   onPressed: () {
