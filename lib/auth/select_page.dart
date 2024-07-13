@@ -67,19 +67,19 @@ class SelectPage extends StatelessWidget {
                 CustomButton(context, AuthStrings().studentAuth, primary1, () {
                   // context.read<AuthCubit>().isStudent = true;
                   UserPreferences prefs = UserPreferences();
-                  prefs.saveUserType(false);
+                  prefs.saveUserType(true);
                   Navigator.of(context).pushAndRemoveUntil(
                     MaterialPageRoute(builder: (context) => LoginPage()),
                     (Route<dynamic> route) => false,
                   );
                 }, 0.6, 0.08),
-                CustomTextButton(
-                    buttonWidth: 0.8,
-                    buttonText: "Check state",
-                    onPressed: () {
-                      debugPrint(
-                          "State on select page is : " + state.toString());
-                    })
+                // CustomTextButton(
+                //     buttonWidth: 0.8,
+                //     buttonText: "Check state",
+                //     onPressed: () {
+                //       debugPrint(
+                //           "State on select page is : " + state.toString());
+                //     })
               ],
             );
           }

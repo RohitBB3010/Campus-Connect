@@ -2,6 +2,7 @@ import 'package:campus_connecy/auth/auth_state.dart';
 import 'package:campus_connecy/constants/fb_consts.dart';
 import 'package:campus_connecy/models/committee.dart';
 import 'package:campus_connecy/models/student.dart';
+import 'package:campus_connecy/user_preferences.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
@@ -114,8 +115,9 @@ class AuthCubit extends Cubit<AuthState> {
     return returnMessage;
   }
 
-  void signInMember() {
-    emit(AuthAuthenticatedState());
+  void signInMember() async {
+    bool isStudent = await UserPreferences().getUserType();
+    emit(AuthAuthenticatedState(isStudent: isStudent));
   }
 
   Future<String?> setPassword(String password) async {
@@ -155,7 +157,8 @@ class AuthCubit extends Cubit<AuthState> {
       UserCredential userCred = await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: email, password: password);
 
-      emit(AuthAuthenticatedState());
+      bool isStudent = await UserPreferences().getUserType();
+      emit(AuthAuthenticatedState(isStudent: isStudent));
       debugPrint("Emitted AuthAuthenticatedState");
     } catch (error) {
       debugPrint(error.toString());
