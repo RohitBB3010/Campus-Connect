@@ -60,7 +60,7 @@ class SetPasswordPage extends StatelessWidget {
                 }
 
                 if (state.password != null && state.confirmPassword != null) {
-                  if (authCubit.isStudent!) {
+                  if (state.isStudent != null && state.isStudent!) {
                     String? returnMessage =
                         await authCubit.setPasswordStudent(state.password!);
 
@@ -88,7 +88,7 @@ class SetPasswordPage extends StatelessWidget {
       }
 
       if (state is AuthAuthenticatedState) {
-        if (context.read<AuthCubit>().isStudent ?? true) {
+        if (state.isStudent != null && state.isStudent!) {
           return StudentMandatoryFields();
         } else {
           return MandatoryCommittePage(committeeCode: state.committeeCode);
@@ -99,22 +99,3 @@ class SetPasswordPage extends StatelessWidget {
     });
   }
 }
-
-// if (state.password == null || state.confirmPassword == null) {
-//                   ScaffoldMessenger.of(context)
-//                       .showSnackBar(buildSnackbar(AuthStrings().fillFields));
-//                 }
-
-//                 if (state.password != state.confirmPassword) {
-//                   ScaffoldMessenger.of(context).showSnackBar(
-//                       buildSnackbar(AuthStrings().passwordsMismatch));
-//                 }
-
-//                 if (state.password != null && state.confirmPassword != null) {
-//                   String? returnMessage = await context
-//                       .read<AuthCubit>()
-//                       .setPassword(state.password!);
-
-//                   ScaffoldMessenger.of(context)
-//                       .showSnackBar(buildSnackbar(returnMessage!));
-//                 }

@@ -9,9 +9,10 @@ class UserPreferences {
     prefs.setBool(userLoginType, isStudent);
   }
 
-  Future<void> getUSerType() async {
+  Future<bool> getUserType() async {
     final prefs = await SharedPreferences.getInstance();
-    prefs.get(userLoginType);
+    bool isStudent = prefs.get(userLoginType) as bool;
+    return isStudent;
   }
 
   Future<void> setCode(String code) async {

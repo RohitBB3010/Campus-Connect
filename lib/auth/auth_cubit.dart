@@ -15,13 +15,13 @@ class AuthCubit extends Cubit<AuthState> {
 
   Future<void> initialize() async {
     final prefs = await SharedPreferences.getInstance();
-    isStudent = prefs.getBool("isStudent");
+    bool? isStudent = prefs.getBool("isStudent");
     User? currentUser = FirebaseAuth.instance.currentUser;
 
     if (currentUser != null) {
-      emit(AuthAuthenticatedState());
+      emit(AuthAuthenticatedState(isStudent: isStudent));
     } else {
-      emit(AuthUnAuthenticatedState());
+      emit(AuthUnAuthenticatedState(isStudent: isStudent));
     }
   }
 

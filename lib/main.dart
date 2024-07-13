@@ -28,13 +28,10 @@ class MainApp extends StatelessWidget {
         theme: ThemeData(fontFamily: "Futura"),
         home: BlocBuilder<AuthCubit, AuthState>(
           builder: (context, state) {
-            bool isStudent = context.read<AuthCubit>().isStudent ?? true;
-            debugPrint("Current state: $state");
             if (state is AuthUnAuthenticatedState) {
               return const SelectPage();
             } else if (state is AuthAuthenticatedState) {
-              if (isStudent) {
-                debugPrint("is student");
+              if (state.isStudent != null && state.isStudent!) {
                 return StudentMandatoryFields();
               } else {
                 return MandatoryCommittePage(

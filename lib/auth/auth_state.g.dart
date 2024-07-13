@@ -20,6 +20,8 @@ abstract class _$AuthUnAuthenticatedStateCWProxy {
   AuthUnAuthenticatedState availableCommittes(
       List<Committee>? availableCommittes);
 
+  AuthUnAuthenticatedState isStudent(bool? isStudent);
+
   /// This function **does support** nullification of nullable fields. All `null` values passed to `non-nullable` fields will be ignored. You can also use `AuthUnAuthenticatedState(...).copyWith.fieldName(...)` to override fields one at a time with nullification support.
   ///
   /// Usage
@@ -33,6 +35,7 @@ abstract class _$AuthUnAuthenticatedStateCWProxy {
     Committee? selectedCommittee,
     String? committeeCode,
     List<Committee>? availableCommittes,
+    bool? isStudent,
   });
 }
 
@@ -68,6 +71,10 @@ class _$AuthUnAuthenticatedStateCWProxyImpl
       this(availableCommittes: availableCommittes);
 
   @override
+  AuthUnAuthenticatedState isStudent(bool? isStudent) =>
+      this(isStudent: isStudent);
+
+  @override
 
   /// This function **does support** nullification of nullable fields. All `null` values passed to `non-nullable` fields will be ignored. You can also use `AuthUnAuthenticatedState(...).copyWith.fieldName(...)` to override fields one at a time with nullification support.
   ///
@@ -82,6 +89,7 @@ class _$AuthUnAuthenticatedStateCWProxyImpl
     Object? selectedCommittee = const $CopyWithPlaceholder(),
     Object? committeeCode = const $CopyWithPlaceholder(),
     Object? availableCommittes = const $CopyWithPlaceholder(),
+    Object? isStudent = const $CopyWithPlaceholder(),
   }) {
     return AuthUnAuthenticatedState(
       email: email == const $CopyWithPlaceholder()
@@ -108,6 +116,10 @@ class _$AuthUnAuthenticatedStateCWProxyImpl
           ? _value.availableCommittes
           // ignore: cast_nullable_to_non_nullable
           : availableCommittes as List<Committee>?,
+      isStudent: isStudent == const $CopyWithPlaceholder()
+          ? _value.isStudent
+          // ignore: cast_nullable_to_non_nullable
+          : isStudent as bool?,
     );
   }
 }

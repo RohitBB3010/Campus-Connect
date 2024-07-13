@@ -13,6 +13,7 @@ import 'package:campus_connecy/constants/colors.dart';
 import 'package:campus_connecy/constants/spacingConsts.dart';
 import 'package:campus_connecy/constants/string_constants.dart';
 import 'package:campus_connecy/students/student_page.dart';
+import 'package:campus_connecy/user_preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -27,6 +28,7 @@ class LoginPage extends StatelessWidget {
       builder: (context, state) {
         if (state is AuthUnAuthenticatedState) {
           final authCubit = context.read<AuthCubit>();
+          bool isStudent;
 
           return AuthSkeleton(
               bodyContent: Column(
@@ -54,7 +56,7 @@ class LoginPage extends StatelessWidget {
                   ScaffoldMessenger.of(context)
                       .showSnackBar(buildSnackbar(AuthStrings().fillFields));
                 } else {
-                  if (authCubit.isStudent != null && authCubit.isStudent!) {
+                  if (state.isStudent != null && state.isStudent!) {
                     bool exists =
                         await authCubit.checkStudentExists(state.email!);
 
@@ -103,7 +105,7 @@ class LoginPage extends StatelessWidget {
         }
 
         if (state is AuthAuthenticatedState) {
-          if (context.read<AuthCubit>().isStudent ?? true) {
+          if (state.isStudent != null && state.isStudent!) {
             return const StudentHome();
           } else {
             return const CommitteePage();

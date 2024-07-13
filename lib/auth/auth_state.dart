@@ -9,8 +9,9 @@ class AuthInitialState extends AuthState {}
 
 class AuthAuthenticatedState extends AuthState {
   String? committeeCode;
+  bool? isStudent;
 
-  AuthAuthenticatedState({this.committeeCode});
+  AuthAuthenticatedState({this.committeeCode, this.isStudent});
 }
 
 @CopyWith()
@@ -21,6 +22,7 @@ class AuthUnAuthenticatedState extends AuthState {
   Committee? selectedCommittee;
   String? committeeCode;
   List<Committee>? availableCommittes;
+  bool? isStudent;
 
   AuthUnAuthenticatedState(
       {this.email,
@@ -28,15 +30,6 @@ class AuthUnAuthenticatedState extends AuthState {
       this.confirmPassword,
       this.selectedCommittee,
       this.committeeCode,
-      this.availableCommittes});
-
-  @override
-  List<Object?> get props => [
-        email,
-        password,
-        confirmPassword,
-        selectedCommittee,
-        committeeCode,
-        availableCommittes
-      ];
+      this.availableCommittes,
+      this.isStudent});
 }
