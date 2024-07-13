@@ -21,7 +21,9 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => AuthCubit()..checkSignIn(),
+      create: (context) => AuthCubit()
+        ..checkSignIn()
+        ..getCommitteesList(),
       child: MaterialApp(
         theme: ThemeData(fontFamily: "Futura"),
         home: BlocBuilder<AuthCubit, AuthState>(

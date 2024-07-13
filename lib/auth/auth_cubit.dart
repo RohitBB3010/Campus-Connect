@@ -56,7 +56,10 @@ class AuthCubit extends Cubit<AuthState> {
       }
 
       debugPrint("Committee list fetched: $committeList");
-      emit(AuthUnAuthenticatedState(availableCommittes: committeList));
+
+      if (state is AuthUnAuthenticatedState) {
+        emit(AuthUnAuthenticatedState(availableCommittes: committeList));
+      }
     } catch (e) {
       debugPrint("Error fetching committee list: $e");
     }

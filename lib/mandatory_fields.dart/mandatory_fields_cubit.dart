@@ -8,7 +8,14 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class MandatoryFieldsCubit extends Cubit<MandatoryFieldsState> {
-  MandatoryFieldsCubit() : super(MandatoryFieldsFillingState());
+  MandatoryFieldsCubit() : super(MandatoryFieldsFillingState()) {
+    getPreference();
+  }
+
+  Future<void> getPreference() async {
+    bool isStudent = await UserPreferences().getUserType();
+    emit((state as MandatoryFieldsFillingState).copyWith(isStudent: isStudent));
+  }
 
   String? getUserEmail() {
     User? user = FirebaseAuth.instance.currentUser;
