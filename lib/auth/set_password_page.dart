@@ -24,6 +24,7 @@ class SetPasswordPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<AuthCubit, AuthState>(builder: (context, state) {
       final authCubit = context.read<AuthCubit>();
+      final String committeeCode;
 
       if (state is AuthUnAuthenticatedState) {
         return AuthSkeleton(
@@ -90,7 +91,7 @@ class SetPasswordPage extends StatelessWidget {
         if (context.read<AuthCubit>().isStudent ?? true) {
           return StudentMandatoryFields();
         } else {
-          return MandatoryCommittePage();
+          return MandatoryCommittePage(committeeCode: state.committeeCode);
         }
       }
 

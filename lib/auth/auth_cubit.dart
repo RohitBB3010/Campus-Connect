@@ -6,9 +6,16 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthCubit extends Cubit<AuthState> {
   AuthCubit() : super(AuthInitialState()) {
+    initialize();
+  }
+
+  Future<void> initialize() async {
+    final prefs = await SharedPreferences.getInstance();
+    isStudent = prefs.getBool("isStudent");
     User? currentUser = FirebaseAuth.instance.currentUser;
 
     if (currentUser != null) {
@@ -27,8 +34,6 @@ class AuthCubit extends Cubit<AuthState> {
       emit(AuthUnAuthenticatedState());
     }
   }
-
-  late bool isStudent = false;
 
   void checkSignIn() {
     User? user = FirebaseAuth.instance.currentUser;

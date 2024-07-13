@@ -37,7 +37,9 @@ class MainApp extends StatelessWidget {
                 debugPrint("is student");
                 return StudentMandatoryFields();
               } else {
-                return MandatoryCommittePage();
+                return MandatoryCommittePage(
+                  committeeCode: 'bmsa',
+                );
               }
             }
 

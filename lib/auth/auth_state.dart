@@ -7,7 +7,11 @@ abstract class AuthState {}
 
 class AuthInitialState extends AuthState {}
 
-class AuthAuthenticatedState extends AuthState {}
+class AuthAuthenticatedState extends AuthState {
+  String? committeeCode;
+
+  AuthAuthenticatedState({this.committeeCode});
+}
 
 @CopyWith()
 class AuthUnAuthenticatedState extends AuthState {

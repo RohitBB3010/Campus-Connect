@@ -33,13 +33,18 @@ class CommitteeMember {
   String? memberName;
   String? memberRole;
   String? memberEmail;
+  String? memberPhone;
   String? joiningDate;
 
   factory CommitteeMember.fromJson(Map<String, dynamic> json) =>
       _$CommitteeMemberFromJson(json);
 
   CommitteeMember(
-      {this.memberName, this.memberRole, this.memberEmail, this.joiningDate});
+      {this.memberName,
+      this.memberRole,
+      this.memberEmail,
+      this.memberPhone,
+      this.joiningDate});
 
   Map<String, dynamic> toJson() => _$CommitteeMemberToJson(this);
 }

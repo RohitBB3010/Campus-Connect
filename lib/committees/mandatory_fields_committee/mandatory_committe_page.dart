@@ -1,6 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:campus_connecy/committees/mandatory_fields_committee/mandatory_committee_cubit.dart';
 import 'package:campus_connecy/committees/mandatory_fields_committee/mandatory_committee_state.dart';
+import 'package:campus_connecy/components/build_snackbar.dart';
 import 'package:campus_connecy/components/custom_button.dart';
 import 'package:campus_connecy/components/text_field.dart';
 import 'package:campus_connecy/constants/colors.dart';
@@ -11,7 +12,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class MandatoryCommittePage extends StatelessWidget {
-  MandatoryCommittePage({super.key});
+  MandatoryCommittePage({super.key, required this.committeeCode});
+  String? committeeCode;
 
   List<String> availableRoles = [
     "Head",
@@ -21,15 +23,18 @@ class MandatoryCommittePage extends StatelessWidget {
     "Department Head"
   ];
 
+  final emailController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => MandatoryCommitteeCubit(),
+      create: (context) => MandatoryCommitteeCubit()..emitStateEmail(),
       child: BlocBuilder<MandatoryCommitteeCubit, MandatoryCommitteeState>(
         builder: (context, state) {
           final mandatoryCommCubit = context.read<MandatoryCommitteeCubit>();
 
           if (state is MandatoryCommitteeFillingState) {
+            emailController.text = state.memberEmail ?? '';
             return SafeArea(
                 child: Scaffold(
               backgroundColor: primary1,
@@ -77,14 +82,25 @@ class MandatoryCommittePage extends StatelessWidget {
                             CustomTextField(
                               fieldWidth: 0.8,
                               icon: const Icon(Icons.email),
+                              controller: emailController,
                               hintText: MandatoryConsts().enterEmail,
                               onChanged: mandatoryCommCubit.emailChanged,
+                            ),
+                            SpacingConsts().mediumHeightBetweenFields(context),
+                            CustomTextField(
+                              fieldWidth: 0.8,
+                              icon: const Icon(Icons.phone),
+                              hintText: MandatoryConsts().enterPhone,
+                              onChanged: mandatoryCommCubit.phoneChanged,
                             ),
                             SpacingConsts().mediumHeightBetweenFields(context),
                             SizedBox(
                               width: MediaQuery.of(context).size.width * 0.8,
                               child: DropdownButtonHideUnderline(
                                 child: DropdownButton2(
+                                  hint: const AutoSizeText("Select role",
+                                      maxLines: 1,
+                                      style: TextStyle(fontSize: 20)),
                                   value: state.memberRole,
                                   dropdownStyleData: DropdownStyleData(
                                       decoration: BoxDecoration(
@@ -97,7 +113,7 @@ class MandatoryCommittePage extends StatelessWidget {
                                               color:
                                                   secondary3.withOpacity(0.7)),
                                           borderRadius:
-                                              BorderRadius.circular(20.0)),
+                                              BorderRadius.circular(10.0)),
                                       height:
                                           MediaQuery.of(context).size.height *
                                               0.07),
@@ -115,13 +131,16 @@ class MandatoryCommittePage extends StatelessWidget {
                               ),
                             ),
                             SpacingConsts().largeHeightBetweenFields(context),
-                            CustomButton(
-                                context,
-                                MandatoryConsts().registerButton,
-                                accent3,
-                                () {},
-                                0.8,
-                                0.07)
+                            CustomButton(context,
+                                MandatoryConsts().registerButton, accent3, () {
+                              if (state.memberEmail == null ||
+                                  state.memberName == null ||
+                                  state.memberPhone == null ||
+                                  state.memberRole == null) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                    buildSnackbar(AuthStrings().fillFields));
+                              } else {}
+                            }, 0.8, 0.07)
                           ],
                         ),
                       ),

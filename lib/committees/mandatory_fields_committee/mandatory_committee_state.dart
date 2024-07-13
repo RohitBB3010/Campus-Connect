@@ -8,11 +8,16 @@ abstract class MandatoryCommitteeState {}
 class MandatoryCommitteeFillingState extends MandatoryCommitteeState {
   String? memberName;
   String? memberEmail;
+  String? memberPhone;
   String? memberRole;
   DateTime? joiningDate;
 
   MandatoryCommitteeFillingState(
-      {this.memberName, this.memberEmail, this.memberRole, this.joiningDate});
+      {this.memberName,
+      this.memberEmail,
+      this.memberRole,
+      this.memberPhone,
+      this.joiningDate});
 }
 
 class MandatoryCommitteeFilledState extends MandatoryCommitteeState {}

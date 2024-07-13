@@ -13,6 +13,8 @@ abstract class _$MandatoryCommitteeFillingStateCWProxy {
 
   MandatoryCommitteeFillingState memberRole(String? memberRole);
 
+  MandatoryCommitteeFillingState memberPhone(String? memberPhone);
+
   MandatoryCommitteeFillingState joiningDate(DateTime? joiningDate);
 
   /// This function **does support** nullification of nullable fields. All `null` values passed to `non-nullable` fields will be ignored. You can also use `MandatoryCommitteeFillingState(...).copyWith.fieldName(...)` to override fields one at a time with nullification support.
@@ -25,6 +27,7 @@ abstract class _$MandatoryCommitteeFillingStateCWProxy {
     String? memberName,
     String? memberEmail,
     String? memberRole,
+    String? memberPhone,
     DateTime? joiningDate,
   });
 }
@@ -49,6 +52,10 @@ class _$MandatoryCommitteeFillingStateCWProxyImpl
       this(memberRole: memberRole);
 
   @override
+  MandatoryCommitteeFillingState memberPhone(String? memberPhone) =>
+      this(memberPhone: memberPhone);
+
+  @override
   MandatoryCommitteeFillingState joiningDate(DateTime? joiningDate) =>
       this(joiningDate: joiningDate);
 
@@ -64,6 +71,7 @@ class _$MandatoryCommitteeFillingStateCWProxyImpl
     Object? memberName = const $CopyWithPlaceholder(),
     Object? memberEmail = const $CopyWithPlaceholder(),
     Object? memberRole = const $CopyWithPlaceholder(),
+    Object? memberPhone = const $CopyWithPlaceholder(),
     Object? joiningDate = const $CopyWithPlaceholder(),
   }) {
     return MandatoryCommitteeFillingState(
@@ -79,6 +87,10 @@ class _$MandatoryCommitteeFillingStateCWProxyImpl
           ? _value.memberRole
           // ignore: cast_nullable_to_non_nullable
           : memberRole as String?,
+      memberPhone: memberPhone == const $CopyWithPlaceholder()
+          ? _value.memberPhone
+          // ignore: cast_nullable_to_non_nullable
+          : memberPhone as String?,
       joiningDate: joiningDate == const $CopyWithPlaceholder()
           ? _value.joiningDate
           // ignore: cast_nullable_to_non_nullable

@@ -37,6 +37,7 @@ CommitteeMember _$CommitteeMemberFromJson(Map<String, dynamic> json) =>
       memberName: json['memberName'] as String?,
       memberRole: json['memberRole'] as String?,
       memberEmail: json['memberEmail'] as String?,
+      memberPhone: json['memberPhone'] as String?,
       joiningDate: json['joiningDate'] as String?,
     );
 
@@ -45,6 +46,7 @@ Map<String, dynamic> _$CommitteeMemberToJson(CommitteeMember instance) =>
       'memberName': instance.memberName,
       'memberRole': instance.memberRole,
       'memberEmail': instance.memberEmail,
+      'memberPhone': instance.memberPhone,
       'joiningDate': instance.joiningDate,
     };
 
