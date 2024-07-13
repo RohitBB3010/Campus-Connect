@@ -18,20 +18,13 @@ class AuthCubit extends Cubit<AuthState> {
     bool? isStudent = prefs.getBool("isStudent");
     User? currentUser = FirebaseAuth.instance.currentUser;
 
+    debugPrint("State is : " + state.toString());
+
+    debugPrint((currentUser == null).toString());
     if (currentUser != null) {
       emit(AuthAuthenticatedState(isStudent: isStudent));
     } else {
       emit(AuthUnAuthenticatedState(isStudent: isStudent));
-    }
-  }
-
-  void getCurrentState() {
-    User? currentUser = FirebaseAuth.instance.currentUser;
-
-    if (currentUser != null) {
-      emit(AuthAuthenticatedState());
-    } else {
-      emit(AuthUnAuthenticatedState());
     }
   }
 
@@ -42,28 +35,6 @@ class AuthCubit extends Cubit<AuthState> {
       emit(AuthAuthenticatedState());
     }
   }
-
-  // Future<void> getCommitteesList() async {
-  //   List<Committee> committeList = [];
-
-  //   var document = await FirebaseFirestore.instance
-  //       .collection('back-end_data')
-  //       .doc('committee_codes')
-  //       .get();
-
-  //   Map<String, dynamic>? documentData = document.data();
-
-  //   documentData?.values.forEach((committeeJson) {
-  //     Committee current = Committee.fromJson(committeeJson);
-  //     committeList.add(current);
-  //   });
-
-  //   debugPrint("Committee list is : " + committeList.toString());
-  //   emit(
-  //     (state as AuthUnAuthenticatedState)
-  //         .copyWith(availableCommittes: committeList),
-  //   );
-  // }
 
   Future<void> getCommitteesList() async {
     try {
@@ -90,7 +61,7 @@ class AuthCubit extends Cubit<AuthState> {
     }
   }
 
-  Future<bool> checkStudentExists(String email) async {
+  Future<bool> checkAccountExists(String email) async {
     var studentDocuments = await FirebaseFirestore.instance
         .collection(StudentFBConsts.collUsers)
         .where(StudentFBConsts.fieldEmail, isEqualTo: email)
@@ -147,7 +118,7 @@ class AuthCubit extends Cubit<AuthState> {
     emit(AuthAuthenticatedState());
   }
 
-  Future<String?> setPasswordStudent(String password) async {
+  Future<String?> setPassword(String password) async {
     User? user = await FirebaseAuth.instance.currentUser;
 
     if (user == null) {

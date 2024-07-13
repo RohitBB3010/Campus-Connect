@@ -3,7 +3,6 @@ import 'package:campus_connecy/auth/auth_cubit.dart';
 import 'package:campus_connecy/auth/auth_state.dart';
 import 'package:campus_connecy/auth/select_page.dart';
 import 'package:campus_connecy/auth/verify_email.dart';
-import 'package:campus_connecy/committees/committee_page.dart';
 import 'package:campus_connecy/components/auth_skeleton.dart';
 import 'package:campus_connecy/components/build_snackbar.dart';
 import 'package:campus_connecy/components/custom_button.dart';
@@ -12,8 +11,7 @@ import 'package:campus_connecy/components/text_field.dart';
 import 'package:campus_connecy/constants/colors.dart';
 import 'package:campus_connecy/constants/spacingConsts.dart';
 import 'package:campus_connecy/constants/string_constants.dart';
-import 'package:campus_connecy/students/student_page.dart';
-import 'package:campus_connecy/user_preferences.dart';
+import 'package:campus_connecy/mandatory_fields.dart/mandatory_fields_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -56,24 +54,16 @@ class LoginPage extends StatelessWidget {
                   ScaffoldMessenger.of(context)
                       .showSnackBar(buildSnackbar(AuthStrings().fillFields));
                 } else {
-                  if (state.isStudent != null && state.isStudent!) {
-                    bool exists =
-                        await authCubit.checkStudentExists(state.email!);
+                  bool exists =
+                      await authCubit.checkAccountExists(state.email!);
 
-                    if (!exists) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                          buildSnackbar(AuthStrings().accountDoesNotExist));
-                    } else {
-                      authCubit.signIn(state.email!, state.password!);
-                    }
+                  if (!exists) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                        buildSnackbar(AuthStrings().accountDoesNotExist));
                   } else {
-                    bool? isMember = await authCubit.verifyIsMember(
-                        state.email!, committeeCode!);
-
-                    if (isMember != null && !isMember) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                          buildSnackbar(AuthStrings().notAMember));
-                    }
+                    context
+                        .read<AuthCubit>()
+                        .signIn(state.email!, state.password!);
                   }
                 }
               }, 0.8, 0.07),
@@ -105,11 +95,7 @@ class LoginPage extends StatelessWidget {
         }
 
         if (state is AuthAuthenticatedState) {
-          if (state.isStudent != null && state.isStudent!) {
-            return const StudentHome();
-          } else {
-            return const CommitteePage();
-          }
+          return MandatoryFieldsPage();
         }
 
         return Container();

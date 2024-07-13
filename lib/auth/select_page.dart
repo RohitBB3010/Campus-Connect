@@ -5,6 +5,7 @@ import 'package:campus_connecy/auth/committee_code_page.dart';
 import 'package:campus_connecy/auth/login_page.dart';
 import 'package:campus_connecy/components/auth_skeleton.dart';
 import 'package:campus_connecy/components/custom_button.dart';
+import 'package:campus_connecy/components/text_button.dart';
 import 'package:campus_connecy/constants/colors.dart';
 import 'package:campus_connecy/constants/spacingConsts.dart';
 import 'package:campus_connecy/constants/string_constants.dart';
@@ -72,6 +73,13 @@ class SelectPage extends StatelessWidget {
                     (Route<dynamic> route) => false,
                   );
                 }, 0.6, 0.08),
+                CustomTextButton(
+                    buttonWidth: 0.8,
+                    buttonText: "Check state",
+                    onPressed: () {
+                      debugPrint(
+                          "State on select page is : " + state.toString());
+                    })
               ],
             );
           }

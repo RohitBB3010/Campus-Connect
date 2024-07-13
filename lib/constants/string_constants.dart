@@ -24,7 +24,7 @@ class AuthStrings {
   String setPassword = "Set Password";
   String confirmPassword = "Confirm Password";
   String accountDoesNotExist =
-      "The account with your given email address does not exist";
+      "The account with your given email address does not exist!! Please sign up";
   String verifyEmail = "Verify email";
   String verifyNote = "In order to sign up, you need to verify email first";
   String verifyEnterEmail = "Please enter email first";

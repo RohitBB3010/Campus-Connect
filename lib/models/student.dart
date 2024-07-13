@@ -9,13 +9,33 @@ class Student {
   String? email;
   String? phoneNumber;
   List<CommitteesSubscribed>? committeesSubscribed;
+  List<CommitteeEnrolment>? committeeEnrollment;
 
   factory Student.fromJson(Map<String, dynamic> json) =>
       _$StudentFromJson(json);
 
-  Student({this.name, this.email, this.committeesSubscribed, this.phoneNumber});
+  Student(
+      {this.name,
+      this.email,
+      this.phoneNumber,
+      this.committeesSubscribed,
+      this.committeeEnrollment});
 
   Map<String, dynamic> toJson() => _$StudentToJson(this);
+}
+
+@JsonSerializable()
+class CommitteeEnrolment {
+  String? committeeName;
+  String? committeeCode;
+  String? role;
+
+  factory CommitteeEnrolment.fromJson(Map<String, dynamic> json) =>
+      _$CommitteeEnrolmentFromJson(json);
+
+  CommitteeEnrolment({this.committeeName, this.committeeCode, this.role});
+
+  Map<String, dynamic> toJson() => _$CommitteeEnrolmentToJson(this);
 }
 
 @JsonSerializable()
