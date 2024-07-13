@@ -17,6 +17,8 @@ abstract class _$MandatoryCommitteeFillingStateCWProxy {
 
   MandatoryCommitteeFillingState joiningDate(DateTime? joiningDate);
 
+  MandatoryCommitteeFillingState committeeCode(String? committeeCode);
+
   /// This function **does support** nullification of nullable fields. All `null` values passed to `non-nullable` fields will be ignored. You can also use `MandatoryCommitteeFillingState(...).copyWith.fieldName(...)` to override fields one at a time with nullification support.
   ///
   /// Usage
@@ -29,6 +31,7 @@ abstract class _$MandatoryCommitteeFillingStateCWProxy {
     String? memberRole,
     String? memberPhone,
     DateTime? joiningDate,
+    String? committeeCode,
   });
 }
 
@@ -60,6 +63,10 @@ class _$MandatoryCommitteeFillingStateCWProxyImpl
       this(joiningDate: joiningDate);
 
   @override
+  MandatoryCommitteeFillingState committeeCode(String? committeeCode) =>
+      this(committeeCode: committeeCode);
+
+  @override
 
   /// This function **does support** nullification of nullable fields. All `null` values passed to `non-nullable` fields will be ignored. You can also use `MandatoryCommitteeFillingState(...).copyWith.fieldName(...)` to override fields one at a time with nullification support.
   ///
@@ -73,6 +80,7 @@ class _$MandatoryCommitteeFillingStateCWProxyImpl
     Object? memberRole = const $CopyWithPlaceholder(),
     Object? memberPhone = const $CopyWithPlaceholder(),
     Object? joiningDate = const $CopyWithPlaceholder(),
+    Object? committeeCode = const $CopyWithPlaceholder(),
   }) {
     return MandatoryCommitteeFillingState(
       memberName: memberName == const $CopyWithPlaceholder()
@@ -95,6 +103,10 @@ class _$MandatoryCommitteeFillingStateCWProxyImpl
           ? _value.joiningDate
           // ignore: cast_nullable_to_non_nullable
           : joiningDate as DateTime?,
+      committeeCode: committeeCode == const $CopyWithPlaceholder()
+          ? _value.committeeCode
+          // ignore: cast_nullable_to_non_nullable
+          : committeeCode as String?,
     );
   }
 }

@@ -20,8 +20,9 @@ class UserPreferences {
     prefs.setString(committeeCode, code);
   }
 
-  Future<void> getCode(String code) async {
+  Future<String> getCode() async {
     final prefs = await SharedPreferences.getInstance();
-    prefs.get(code);
+    String code = prefs.get(committeeCode) as String;
+    return code;
   }
 }

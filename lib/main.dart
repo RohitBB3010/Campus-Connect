@@ -2,7 +2,6 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:campus_connecy/auth/auth_cubit.dart';
 import 'package:campus_connecy/auth/auth_state.dart';
 import 'package:campus_connecy/auth/select_page.dart';
-import 'package:campus_connecy/committees/committee_page.dart';
 import 'package:campus_connecy/committees/mandatory_fields_committee/mandatory_committe_page.dart';
 import 'package:campus_connecy/students/mandatory_fields_students/student_mandatory_fields.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

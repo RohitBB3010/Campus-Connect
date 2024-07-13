@@ -43,25 +43,51 @@ class AuthCubit extends Cubit<AuthState> {
     }
   }
 
-  void getCommitteesList() async {
-    List<Committee> committeList = [];
+  // Future<void> getCommitteesList() async {
+  //   List<Committee> committeList = [];
 
-    var document = await FirebaseFirestore.instance
-        .collection('back-end_data')
-        .doc('committee_codes')
-        .get();
+  //   var document = await FirebaseFirestore.instance
+  //       .collection('back-end_data')
+  //       .doc('committee_codes')
+  //       .get();
 
-    Map<String, dynamic>? documentData = document.data();
+  //   Map<String, dynamic>? documentData = document.data();
 
-    documentData?.values.forEach((committeeJson) {
-      Committee current = Committee.fromJson(committeeJson);
-      committeList.add(current);
-    });
+  //   documentData?.values.forEach((committeeJson) {
+  //     Committee current = Committee.fromJson(committeeJson);
+  //     committeList.add(current);
+  //   });
 
-    emit(
-      (state as AuthUnAuthenticatedState)
-          .copyWith(availableCommittes: committeList),
-    );
+  //   debugPrint("Committee list is : " + committeList.toString());
+  //   emit(
+  //     (state as AuthUnAuthenticatedState)
+  //         .copyWith(availableCommittes: committeList),
+  //   );
+  // }
+
+  Future<void> getCommitteesList() async {
+    try {
+      List<Committee> committeList = [];
+
+      var document = await FirebaseFirestore.instance
+          .collection('back-end_data')
+          .doc('committee_codes')
+          .get();
+
+      Map<String, dynamic>? documentData = document.data();
+
+      if (documentData != null) {
+        documentData.values.forEach((committeeJson) {
+          Committee current = Committee.fromJson(committeeJson);
+          committeList.add(current);
+        });
+      }
+
+      debugPrint("Committee list fetched: $committeList");
+      emit(AuthUnAuthenticatedState(availableCommittes: committeList));
+    } catch (e) {
+      debugPrint("Error fetching committee list: $e");
+    }
   }
 
   Future<bool> checkStudentExists(String email) async {

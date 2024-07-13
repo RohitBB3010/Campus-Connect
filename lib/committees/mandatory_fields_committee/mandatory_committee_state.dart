@@ -11,13 +11,16 @@ class MandatoryCommitteeFillingState extends MandatoryCommitteeState {
   String? memberPhone;
   String? memberRole;
   DateTime? joiningDate;
+  String? committeeCode;
 
-  MandatoryCommitteeFillingState(
-      {this.memberName,
-      this.memberEmail,
-      this.memberRole,
-      this.memberPhone,
-      this.joiningDate});
+  MandatoryCommitteeFillingState({
+    this.memberName,
+    this.memberEmail,
+    this.memberRole,
+    this.memberPhone,
+    this.joiningDate,
+    this.committeeCode,
+  });
 }
 
 class MandatoryCommitteeFilledState extends MandatoryCommitteeState {}

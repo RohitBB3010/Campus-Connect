@@ -1,12 +1,15 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:campus_connecy/auth/auth_cubit.dart';
 import 'package:campus_connecy/committees/mandatory_fields_committee/mandatory_committee_cubit.dart';
 import 'package:campus_connecy/committees/mandatory_fields_committee/mandatory_committee_state.dart';
 import 'package:campus_connecy/components/build_snackbar.dart';
 import 'package:campus_connecy/components/custom_button.dart';
+import 'package:campus_connecy/components/text_button.dart';
 import 'package:campus_connecy/components/text_field.dart';
 import 'package:campus_connecy/constants/colors.dart';
 import 'package:campus_connecy/constants/spacingConsts.dart';
 import 'package:campus_connecy/constants/string_constants.dart';
+import 'package:campus_connecy/user_preferences.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -28,7 +31,9 @@ class MandatoryCommittePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => MandatoryCommitteeCubit()..emitStateEmail(),
+      create: (context) => MandatoryCommitteeCubit()
+        ..emitStateEmail()
+        ..committeeCode(),
       child: BlocBuilder<MandatoryCommitteeCubit, MandatoryCommitteeState>(
         builder: (context, state) {
           final mandatoryCommCubit = context.read<MandatoryCommitteeCubit>();
@@ -65,7 +70,7 @@ class MandatoryCommittePage extends StatelessWidget {
                         ),
                         child: Column(
                           children: [
-                            SpacingConsts().largeHeightBetweenFields(context),
+                            SpacingConsts().mediumHeightBetweenFields(context),
                             AutoSizeText(
                               AuthStrings().signInAsMember,
                               maxLines: 1,
@@ -140,7 +145,14 @@ class MandatoryCommittePage extends StatelessWidget {
                                 ScaffoldMessenger.of(context).showSnackBar(
                                     buildSnackbar(AuthStrings().fillFields));
                               } else {}
-                            }, 0.8, 0.07)
+                            }, 0.8, 0.07),
+                            SpacingConsts().smallHeightBetweenFields(context),
+                            CustomTextButton(
+                                buttonWidth: 0.8,
+                                buttonText: AuthStrings().returnToSelectPage,
+                                onPressed: () {
+                                  context.read<AuthCubit>().signOut();
+                                })
                           ],
                         ),
                       ),

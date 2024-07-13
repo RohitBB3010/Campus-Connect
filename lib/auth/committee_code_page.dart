@@ -12,6 +12,7 @@ import 'package:campus_connecy/constants/colors.dart';
 import 'package:campus_connecy/constants/spacingConsts.dart';
 import 'package:campus_connecy/constants/string_constants.dart';
 import 'package:campus_connecy/models/committee.dart';
+import 'package:campus_connecy/user_preferences.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -24,6 +25,7 @@ class CommitteeCodePage extends StatelessWidget {
     return BlocBuilder<AuthCubit, AuthState>(
       builder: (context, state) {
         if (state is AuthUnAuthenticatedState) {
+          debugPrint(state.availableCommittes.toString());
           return AuthSkeleton(
             bodyContent: Column(
               children: [
@@ -86,7 +88,8 @@ class CommitteeCodePage extends StatelessWidget {
                       ],
                     )),
                 SpacingConsts().mediumHeightBetweenFields(context),
-                CustomButton(context, AuthStrings().verifyCode, accent3, () {
+                CustomButton(context, AuthStrings().verifyCode, accent3,
+                    () async {
                   if (state.selectedCommittee == null) {
                     ScaffoldMessenger.of(context).showSnackBar(
                         buildSnackbar(AuthStrings().selectCommitteeFirst));
@@ -117,6 +120,9 @@ class CommitteeCodePage extends StatelessWidget {
 
                     if (state.selectedCommittee != null &&
                         state.committeeCode == state.selectedCommittee!.code) {
+                      UserPreferences prefs = UserPreferences();
+                      prefs.setCode(state.selectedCommittee!.code!);
+
                       Navigator.of(context).pushAndRemoveUntil(
                           MaterialPageRoute(
                               builder: (context) => LoginPage(
