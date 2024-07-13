@@ -2,6 +2,7 @@ import 'package:campus_connecy/constants/fb_consts.dart';
 import 'package:campus_connecy/mandatory_fields.dart/mandatory_fields_state.dart';
 import 'package:campus_connecy/models/committee.dart';
 import 'package:campus_connecy/models/student.dart';
+import 'package:campus_connecy/user_preferences.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -9,11 +10,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class MandatoryFieldsCubit extends Cubit<MandatoryFieldsState> {
   MandatoryFieldsCubit() : super(MandatoryFieldsFillingState());
 
-  Future<void> getUserEmail() async {
+  String? getUserEmail() {
     User? user = FirebaseAuth.instance.currentUser;
 
     if (user != null) {
-      emit((state as MandatoryFieldsFillingState).copyWith(email: user.email));
+      return user.email;
     }
   }
 
@@ -82,6 +83,9 @@ class MandatoryFieldsCubit extends Cubit<MandatoryFieldsState> {
             (state as MandatoryFieldsFillingState).phone,
         StudentFBConsts.fieldCommittees: commSubsList
       });
+
+      bool isStudent = await UserPreferences().getUserType();
+      emit(MandatoryFieldsFilledState(isStudent: isStudent));
     }
   }
 

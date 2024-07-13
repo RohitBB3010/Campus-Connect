@@ -1,6 +1,8 @@
 import 'package:animated_custom_dropdown/custom_dropdown.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:campus_connecy/auth/auth_cubit.dart';
+import 'package:campus_connecy/committees/committee_page.dart';
+import 'package:campus_connecy/components/build_snackbar.dart';
 import 'package:campus_connecy/components/custom_button.dart';
 import 'package:campus_connecy/components/text_button.dart';
 import 'package:campus_connecy/components/text_field.dart';
@@ -9,6 +11,8 @@ import 'package:campus_connecy/constants/spacingConsts.dart';
 import 'package:campus_connecy/constants/string_constants.dart';
 import 'package:campus_connecy/mandatory_fields.dart/mandatory_fields_cubit.dart';
 import 'package:campus_connecy/mandatory_fields.dart/mandatory_fields_state.dart';
+import 'package:campus_connecy/students/student_page.dart';
+import 'package:campus_connecy/user_preferences.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -29,16 +33,14 @@ class MandatoryFieldsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-        create: (context) => MandatoryFieldsCubit()
-          ..getCommittees()
-          ..getUserEmail(),
+        create: (context) => MandatoryFieldsCubit()..getCommittees(),
         child: BlocBuilder<MandatoryFieldsCubit, MandatoryFieldsState>(
           builder: (context, state) {
             final mandatoryCubit = context.read<MandatoryFieldsCubit>();
 
             if (state is MandatoryFieldsFillingState) {
-              emailController.text = state.email ?? '';
-              debugPrint(state.committeesList.toString());
+              emailController.text = mandatoryCubit.getUserEmail() ?? '';
+
               return SafeArea(
                   child: Scaffold(
                 backgroundColor: primary1,
@@ -176,7 +178,16 @@ class MandatoryFieldsPage extends StatelessWidget {
                                     context,
                                     MandatoryConsts().registerButton,
                                     accent3, () {
-                                  mandatoryCubit.registerUser();
+                                  if (state.name == null ||
+                                      state.phone == null ||
+                                      state.email == null ||
+                                      !state.isStudent! && state.role == null) {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                        buildSnackbar(
+                                            MandatoryConsts().fillFields));
+                                  } else {
+                                    mandatoryCubit.registerUser();
+                                  }
                                 }, 0.8, 0.07),
                                 SpacingConsts()
                                     .smallHeightBetweenFields(context),
@@ -198,7 +209,13 @@ class MandatoryFieldsPage extends StatelessWidget {
               ));
             }
 
-            if (state is MandatoryFieldsFilledState) {}
+            if (state is MandatoryFieldsFilledState) {
+              if (state.isStudent) {
+                return const StudentHome();
+              } else {
+                return const CommitteePage();
+              }
+            }
 
             return Container();
           },

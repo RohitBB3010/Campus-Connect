@@ -44,4 +44,5 @@ class MandatoryConsts {
   String enterPhone = "Enter phone number";
   String selectCommittees = "Select Committees";
   String registerButton = "Register";
+  String fillFields = "Please fill all fields";
 }

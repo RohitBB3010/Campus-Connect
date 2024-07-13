@@ -25,4 +25,8 @@ class MandatoryFieldsFillingState extends MandatoryFieldsState {
       this.isStudent});
 }
 
-class MandatoryFieldsFilledState extends MandatoryFieldsState {}
+class MandatoryFieldsFilledState extends MandatoryFieldsState {
+  bool isStudent;
+
+  MandatoryFieldsFilledState({required this.isStudent});
+}
