@@ -1,6 +1,7 @@
 import 'package:animated_custom_dropdown/custom_dropdown.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:campus_connecy/auth/auth_cubit.dart';
+import 'package:campus_connecy/auth/select_page.dart';
 import 'package:campus_connecy/committees/committee_page.dart';
 import 'package:campus_connecy/components/build_snackbar.dart';
 import 'package:campus_connecy/components/custom_button.dart';
@@ -205,7 +206,15 @@ class MandatoryFieldsPage extends StatelessWidget {
                                     buttonText:
                                         AuthStrings().returnToSelectPage,
                                     onPressed: () {
-                                      context.read<AuthCubit>().signOut();
+                                      context.read<AuthCubit>().signOut(() {
+                                        Navigator.of(context)
+                                            .pushAndRemoveUntil(
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  const SelectPage()),
+                                          (Route<dynamic> route) => false,
+                                        );
+                                      });
                                     })
                               ],
                             ),

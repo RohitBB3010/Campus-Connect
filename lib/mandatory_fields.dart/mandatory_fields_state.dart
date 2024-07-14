@@ -5,6 +5,8 @@ part 'mandatory_fields_state.g.dart';
 
 class MandatoryFieldsState {}
 
+class MandatoryFieldsInitialState extends MandatoryFieldsState {}
+
 @CopyWith()
 class MandatoryFieldsFillingState extends MandatoryFieldsState {
   String? name;

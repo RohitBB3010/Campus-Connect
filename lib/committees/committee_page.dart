@@ -1,5 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:campus_connecy/auth/auth_cubit.dart';
+import 'package:campus_connecy/auth/select_page.dart';
 import 'package:campus_connecy/components/custom_button.dart';
 import 'package:campus_connecy/constants/colors.dart';
 import 'package:campus_connecy/constants/spacingConsts.dart';
@@ -134,8 +135,15 @@ class CommitteePage extends StatelessWidget {
               return Scaffold(
                 body: Column(
                   children: [
-                    CustomButton(context, 'Sign out', accent3,
-                        context.read<AuthCubit>().signOut, 0.6, 0.08)
+                    CustomButton(context, 'Sign out', accent3, () {
+                      context.read<AuthCubit>().signOut(() {
+                        Navigator.of(context).pushAndRemoveUntil(
+                          MaterialPageRoute(
+                              builder: (context) => const SelectPage()),
+                          (Route<dynamic> route) => false,
+                        );
+                      });
+                    }, 0.6, 0.08)
                   ],
                 ),
               );

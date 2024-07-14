@@ -12,7 +12,6 @@ import 'package:campus_connecy/components/text_field.dart';
 import 'package:campus_connecy/constants/colors.dart';
 import 'package:campus_connecy/constants/spacingConsts.dart';
 import 'package:campus_connecy/constants/string_constants.dart';
-import 'package:campus_connecy/mandatory_fields.dart/mandatory_fields_page.dart';
 import 'package:campus_connecy/students/student_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -97,7 +96,6 @@ class LoginPage extends StatelessWidget {
         }
 
         if (state is AuthAuthenticatedState) {
-          debugPrint("isStudent :" + state.isStudent.toString());
           if (state.isStudent != null && state.isStudent!) {
             return StudentHome();
           } else {

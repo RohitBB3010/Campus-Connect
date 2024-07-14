@@ -20,9 +20,7 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => AuthCubit()
-        ..checkSignIn()
-        ..getCommitteesList(),
+      create: (context) => AuthCubit()..checkSignIn(),
       child: MaterialApp(
         theme: ThemeData(fontFamily: "Futura"),
         home: BlocBuilder<AuthCubit, AuthState>(
@@ -37,7 +35,7 @@ class MainApp extends StatelessWidget {
               }
             }
 
-            return const AutoSizeText("Main default");
+            return const CircularProgressIndicator();
           },
         ),
       ),

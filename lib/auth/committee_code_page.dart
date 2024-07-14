@@ -26,6 +26,11 @@ class CommitteeCodePage extends StatelessWidget {
       builder: (context, state) {
         if (state is AuthUnAuthenticatedState) {
           debugPrint(state.availableCommittes.toString());
+
+          if (state.availableCommittes == null) {
+            return const CircularProgressIndicator();
+          }
+
           return AuthSkeleton(
             bodyContent: Column(
               children: [
@@ -121,7 +126,8 @@ class CommitteeCodePage extends StatelessWidget {
                     if (state.selectedCommittee != null &&
                         state.committeeCode == state.selectedCommittee!.code) {
                       UserPreferences prefs = UserPreferences();
-                      prefs.setCode(state.selectedCommittee!.code!);
+                      prefs.setCode(
+                          state.selectedCommittee!.code!.split('@').first);
 
                       Navigator.of(context).pushAndRemoveUntil(
                           MaterialPageRoute(

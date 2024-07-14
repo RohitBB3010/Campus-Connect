@@ -9,8 +9,8 @@ class StudentFBConsts {
   static const fieldName = "name";
   static const fieldPhone = "phoneNumber";
   static const fieldEmail = "email";
-  static const fieldCommittees = "committeeSubs";
-  static const fieldCommitteesEnrolled = "committeeEnrol";
+  static const fieldCommittees = "committeesSubscribed";
+  static const fieldCommitteesEnrolled = "committeeEnrollment";
 }
 
 class CommitteeConsts {

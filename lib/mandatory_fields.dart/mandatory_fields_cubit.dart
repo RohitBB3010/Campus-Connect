@@ -1,7 +1,4 @@
-import 'dart:ui';
-
 import 'package:campus_connecy/constants/fb_consts.dart';
-import 'package:campus_connecy/constants/string_constants.dart';
 import 'package:campus_connecy/mandatory_fields.dart/mandatory_fields_state.dart';
 import 'package:campus_connecy/models/committee.dart';
 import 'package:campus_connecy/models/student.dart';
@@ -127,7 +124,7 @@ class MandatoryFieldsCubit extends Cubit<MandatoryFieldsState> {
   Future<void> registerUserMember() async {
     List<dynamic> commSubsList = [];
     String commCode = await UserPreferences().getCode();
-    commCode = commCode.split('@').first;
+    commCode = commCode;
     CommitteeEnrolment commEnrol = CommitteeEnrolment();
     debugPrint(commCode);
 
@@ -161,7 +158,7 @@ class MandatoryFieldsCubit extends Cubit<MandatoryFieldsState> {
 
       Committee c = (state as MandatoryFieldsFillingState)
           .committeesList!
-          .firstWhere((comm) => comm.code!.split('@').first == commCode);
+          .firstWhere((comm) => comm.code! == commCode);
       debugPrint(c.toString());
 
       commEnrol = CommitteeEnrolment(
@@ -258,7 +255,7 @@ class MandatoryFieldsCubit extends Cubit<MandatoryFieldsState> {
 
       FirebaseFirestore.instance
           .collection(CommitteeConsts.collCommittee)
-          .doc(code.split('@').first)
+          .doc(code)
           .update({
         CommitteeConsts.fieldMembers:
             FieldValue.arrayUnion([committeeMember.toJson()])
@@ -268,7 +265,7 @@ class MandatoryFieldsCubit extends Cubit<MandatoryFieldsState> {
 
       var committeeDoc = await FirebaseFirestore.instance
           .collection(CommitteeConsts.collCommittee)
-          .doc(code.split('@').first)
+          .doc(code)
           .get();
 
       Committee committee = Committee.fromJson(committeeDoc.data()!);

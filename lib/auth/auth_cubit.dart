@@ -18,14 +18,14 @@ class AuthCubit extends Cubit<AuthState> {
     final prefs = await SharedPreferences.getInstance();
     bool? isStudent = prefs.getBool("isStudent");
     User? currentUser = FirebaseAuth.instance.currentUser;
-
-    debugPrint("State is : " + state.toString());
+    List<Committee> committeeList = await getBackendData();
 
     debugPrint((currentUser == null).toString());
     if (currentUser != null) {
       emit(AuthAuthenticatedState(isStudent: isStudent));
     } else {
-      emit(AuthUnAuthenticatedState(isStudent: isStudent));
+      emit(AuthUnAuthenticatedState()
+          .copyWith(availableCommittes: committeeList, isStudent: isStudent));
     }
   }
 
@@ -37,32 +37,23 @@ class AuthCubit extends Cubit<AuthState> {
     }
   }
 
-  Future<void> getCommitteesList() async {
-    try {
-      List<Committee> committeList = [];
+  Future<List<Committee>> getBackendData() async {
+    List<Committee> committeList = [];
+    var document = await FirebaseFirestore.instance
+        .collection('back-end_data')
+        .doc('committee_codes')
+        .get();
 
-      var document = await FirebaseFirestore.instance
-          .collection('back-end_data')
-          .doc('committee_codes')
-          .get();
+    Map<String, dynamic>? documentData = document.data();
 
-      Map<String, dynamic>? documentData = document.data();
-
-      if (documentData != null) {
-        documentData.values.forEach((committeeJson) {
-          Committee current = Committee.fromJson(committeeJson);
-          committeList.add(current);
-        });
-      }
-
-      debugPrint("Committee list fetched: $committeList");
-
-      if (state is AuthUnAuthenticatedState) {
-        emit(AuthUnAuthenticatedState(availableCommittes: committeList));
-      }
-    } catch (e) {
-      debugPrint("Error fetching committee list: $e");
+    if (documentData != null) {
+      documentData.forEach((key, value) {
+        Committee current = Committee.fromJson(value);
+        committeList.add(current);
+      });
     }
+
+    return committeList;
   }
 
   Future<bool> checkAccountExists(String email) async {
@@ -76,7 +67,7 @@ class AuthCubit extends Cubit<AuthState> {
   }
 
   Future<bool?> verifyIsMember(String email, String committeeCode) async {
-    String code = committeeCode.split('@').first.toString();
+    String code = committeeCode;
 
     var document = await FirebaseFirestore.instance
         .collection(CommitteeConsts.collCommittee)
@@ -132,9 +123,10 @@ class AuthCubit extends Cubit<AuthState> {
 
     await user.reload();
 
-    debugPrint(user.emailVerified.toString());
+    user = FirebaseAuth.instance.currentUser;
+    await Future.delayed(const Duration(seconds: 1));
 
-    if (!user.emailVerified) {
+    if (!user!.emailVerified) {
       return "Email Not Verified";
     }
 
@@ -177,9 +169,12 @@ class AuthCubit extends Cubit<AuthState> {
     }
   }
 
-  void signOut() async {
+  void signOut(VoidCallback? onSignOut) async {
     FirebaseAuth.instance.signOut();
     emit(AuthUnAuthenticatedState());
+    if (onSignOut != null) {
+      onSignOut();
+    }
   }
 
   void committeeChanged(Committee committee) {
