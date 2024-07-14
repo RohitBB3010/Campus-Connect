@@ -5,6 +5,7 @@ import 'package:campus_connecy/models/student.dart';
 import 'package:campus_connecy/user_preferences.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class MandatoryFieldsCubit extends Cubit<MandatoryFieldsState> {
@@ -89,6 +90,98 @@ class MandatoryFieldsCubit extends Cubit<MandatoryFieldsState> {
         StudentFBConsts.fieldPhone:
             (state as MandatoryFieldsFillingState).phone,
         StudentFBConsts.fieldCommittees: commSubsList
+      });
+
+      bool isStudent = await UserPreferences().getUserType();
+      emit(MandatoryFieldsFilledState(isStudent: isStudent));
+    }
+  }
+
+  Future<void> registerUserMember() async {
+    List<dynamic> commSubsList = [];
+    String commCode = await UserPreferences().getCode();
+    commCode = commCode.split('@').first;
+    CommitteeEnrolment commEnrol = CommitteeEnrolment();
+    debugPrint(commCode);
+
+    if ((state as MandatoryFieldsFillingState).committeesList != null) {
+      if ((state as MandatoryFieldsFillingState).committeesSubscribed != null) {
+        for (int i = 0;
+            i <
+                (state as MandatoryFieldsFillingState)
+                    .committeesSubscribed!
+                    .length;
+            i++) {
+          Committee comm = (state as MandatoryFieldsFillingState)
+              .committeesList!
+              .firstWhere((comm) =>
+                  comm.name ==
+                  (state as MandatoryFieldsFillingState)
+                      .committeesSubscribed![i]);
+
+          CommitteesSubscribed commSubs = CommitteesSubscribed(
+              committeeName: comm.name, dateSubscribed: DateTime.now());
+
+          commSubsList.add(commSubs.toJson());
+        }
+      }
+
+      (state as MandatoryFieldsFillingState)
+          .committeesList!
+          .forEach((committee) {
+        debugPrint(committee.code);
+      });
+
+      debugPrint("commCode is " + commCode);
+
+      Committee c = (state as MandatoryFieldsFillingState)
+          .committeesList!
+          .firstWhere((comm) => comm.code!.split('@').first == commCode);
+      debugPrint(c.toString());
+
+      commEnrol = CommitteeEnrolment(
+          committeeName: c.name,
+          committeeCode: c.code,
+          role: (state as MandatoryFieldsFillingState).role);
+    }
+
+    CommitteeMember committeeMember = CommitteeMember(
+        memberName: (state as MandatoryFieldsFillingState).name,
+        memberEmail: (state as MandatoryFieldsFillingState).email,
+        memberPhone: (state as MandatoryFieldsFillingState).phone,
+        memberRole: (state as MandatoryFieldsFillingState).role,
+        joiningDate: DateTime.now());
+
+    var document = await FirebaseFirestore.instance
+        .collection(StudentFBConsts.collUsers)
+        .where(StudentFBConsts.fieldEmail,
+            isEqualTo: (state as MandatoryFieldsFillingState).email)
+        .limit(1)
+        .get();
+
+    var committeeDocument = await FirebaseFirestore.instance
+        .collection(CommitteeConsts.collCommittee)
+        .doc(commCode)
+        .update({
+      CommitteeConsts.fieldMembers:
+          FieldValue.arrayUnion([committeeMember.toJson()])
+    });
+
+    if (document.docs.isNotEmpty) {
+      String id = document.docs.first.id;
+
+      FirebaseFirestore.instance
+          .collection(StudentFBConsts.collUsers)
+          .doc(id)
+          .update({
+        StudentFBConsts.fieldName: (state as MandatoryFieldsFillingState).name,
+        StudentFBConsts.fieldEmail:
+            (state as MandatoryFieldsFillingState).email,
+        StudentFBConsts.fieldPhone:
+            (state as MandatoryFieldsFillingState).phone,
+        StudentFBConsts.fieldCommittees: commSubsList,
+        StudentFBConsts.fieldCommitteesEnrolled:
+            FieldValue.arrayUnion([commEnrol.toJson()])
       });
 
       bool isStudent = await UserPreferences().getUserType();

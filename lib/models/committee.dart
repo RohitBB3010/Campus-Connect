@@ -34,7 +34,8 @@ class CommitteeMember {
   String? memberRole;
   String? memberEmail;
   String? memberPhone;
-  String? joiningDate;
+  @JsonKey(fromJson: tsToDateTime, toJson: datetimeToTs)
+  DateTime? joiningDate;
 
   factory CommitteeMember.fromJson(Map<String, dynamic> json) =>
       _$CommitteeMemberFromJson(json);

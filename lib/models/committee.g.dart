@@ -38,7 +38,7 @@ CommitteeMember _$CommitteeMemberFromJson(Map<String, dynamic> json) =>
       memberRole: json['memberRole'] as String?,
       memberEmail: json['memberEmail'] as String?,
       memberPhone: json['memberPhone'] as String?,
-      joiningDate: json['joiningDate'] as String?,
+      joiningDate: tsToDateTime(json['joiningDate'] as Timestamp?),
     );
 
 Map<String, dynamic> _$CommitteeMemberToJson(CommitteeMember instance) =>
@@ -47,7 +47,7 @@ Map<String, dynamic> _$CommitteeMemberToJson(CommitteeMember instance) =>
       'memberRole': instance.memberRole,
       'memberEmail': instance.memberEmail,
       'memberPhone': instance.memberPhone,
-      'joiningDate': instance.joiningDate,
+      'joiningDate': datetimeToTs(instance.joiningDate),
     };
 
 Event _$EventFromJson(Map<String, dynamic> json) => Event(

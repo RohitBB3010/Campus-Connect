@@ -12,7 +12,6 @@ import 'package:campus_connecy/constants/string_constants.dart';
 import 'package:campus_connecy/mandatory_fields.dart/mandatory_fields_cubit.dart';
 import 'package:campus_connecy/mandatory_fields.dart/mandatory_fields_state.dart';
 import 'package:campus_connecy/students/student_page.dart';
-import 'package:campus_connecy/user_preferences.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -40,6 +39,7 @@ class MandatoryFieldsPage extends StatelessWidget {
 
             if (state is MandatoryFieldsFillingState) {
               emailController.text = mandatoryCubit.getUserEmail() ?? '';
+              state.email = mandatoryCubit.getUserEmail() ?? '';
 
               return SafeArea(
                   child: Scaffold(
@@ -182,11 +182,21 @@ class MandatoryFieldsPage extends StatelessWidget {
                                       state.phone == null ||
                                       state.email == null ||
                                       !state.isStudent! && state.role == null) {
+                                    debugPrint(state.isStudent.toString());
+                                    debugPrint(state.name.toString());
+                                    debugPrint(state.email.toString());
+                                    debugPrint(state.role.toString());
+                                    debugPrint(state.phone.toString());
                                     ScaffoldMessenger.of(context).showSnackBar(
                                         buildSnackbar(
                                             MandatoryConsts().fillFields));
                                   } else {
-                                    mandatoryCubit.registerUser();
+                                    if (state.isStudent != null &&
+                                        state.isStudent!) {
+                                      mandatoryCubit.registerUser();
+                                    } else {
+                                      mandatoryCubit.registerUserMember();
+                                    }
                                   }
                                 }, 0.8, 0.07),
                                 SpacingConsts()
