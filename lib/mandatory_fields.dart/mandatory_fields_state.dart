@@ -30,3 +30,13 @@ class MandatoryFieldsFilledState extends MandatoryFieldsState {
 
   MandatoryFieldsFilledState({required this.isStudent});
 }
+
+@CopyWith()
+class MandatoryNewMemberState extends MandatoryFieldsState {
+  bool isStudent;
+  String? role;
+  List<Committee>? committeeList;
+
+  MandatoryNewMemberState(
+      {required this.isStudent, this.role, this.committeeList});
+}

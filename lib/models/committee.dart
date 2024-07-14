@@ -9,7 +9,7 @@ class Committee {
   String? code;
   String? logo;
   String? password;
-  List<CommitteeMember>? member;
+  List<CommitteeMember>? members;
   List<Event>? events;
   List<Announcement>? announcements;
 
@@ -21,7 +21,7 @@ class Committee {
       this.code,
       this.logo,
       this.password,
-      this.member,
+      this.members,
       this.events,
       this.announcements});
 

@@ -31,7 +31,7 @@ class MainApp extends StatelessWidget {
               return const SelectPage();
             } else if (state is AuthAuthenticatedState) {
               if (state.isStudent != null && state.isStudent!) {
-                return StudentHome();
+                return const StudentHome();
               } else {
                 return CommitteePage();
               }

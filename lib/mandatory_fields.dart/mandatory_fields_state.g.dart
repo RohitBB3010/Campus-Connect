@@ -127,3 +127,78 @@ extension $MandatoryFieldsFillingStateCopyWith on MandatoryFieldsFillingState {
   _$MandatoryFieldsFillingStateCWProxy get copyWith =>
       _$MandatoryFieldsFillingStateCWProxyImpl(this);
 }
+
+abstract class _$MandatoryNewMemberStateCWProxy {
+  MandatoryNewMemberState isStudent(bool isStudent);
+
+  MandatoryNewMemberState role(String? role);
+
+  MandatoryNewMemberState committeeList(List<Committee>? committeeList);
+
+  /// This function **does support** nullification of nullable fields. All `null` values passed to `non-nullable` fields will be ignored. You can also use `MandatoryNewMemberState(...).copyWith.fieldName(...)` to override fields one at a time with nullification support.
+  ///
+  /// Usage
+  /// ```dart
+  /// MandatoryNewMemberState(...).copyWith(id: 12, name: "My name")
+  /// ````
+  MandatoryNewMemberState call({
+    bool? isStudent,
+    String? role,
+    List<Committee>? committeeList,
+  });
+}
+
+/// Proxy class for `copyWith` functionality. This is a callable class and can be used as follows: `instanceOfMandatoryNewMemberState.copyWith(...)`. Additionally contains functions for specific fields e.g. `instanceOfMandatoryNewMemberState.copyWith.fieldName(...)`
+class _$MandatoryNewMemberStateCWProxyImpl
+    implements _$MandatoryNewMemberStateCWProxy {
+  const _$MandatoryNewMemberStateCWProxyImpl(this._value);
+
+  final MandatoryNewMemberState _value;
+
+  @override
+  MandatoryNewMemberState isStudent(bool isStudent) =>
+      this(isStudent: isStudent);
+
+  @override
+  MandatoryNewMemberState role(String? role) => this(role: role);
+
+  @override
+  MandatoryNewMemberState committeeList(List<Committee>? committeeList) =>
+      this(committeeList: committeeList);
+
+  @override
+
+  /// This function **does support** nullification of nullable fields. All `null` values passed to `non-nullable` fields will be ignored. You can also use `MandatoryNewMemberState(...).copyWith.fieldName(...)` to override fields one at a time with nullification support.
+  ///
+  /// Usage
+  /// ```dart
+  /// MandatoryNewMemberState(...).copyWith(id: 12, name: "My name")
+  /// ````
+  MandatoryNewMemberState call({
+    Object? isStudent = const $CopyWithPlaceholder(),
+    Object? role = const $CopyWithPlaceholder(),
+    Object? committeeList = const $CopyWithPlaceholder(),
+  }) {
+    return MandatoryNewMemberState(
+      isStudent: isStudent == const $CopyWithPlaceholder() || isStudent == null
+          ? _value.isStudent
+          // ignore: cast_nullable_to_non_nullable
+          : isStudent as bool,
+      role: role == const $CopyWithPlaceholder()
+          ? _value.role
+          // ignore: cast_nullable_to_non_nullable
+          : role as String?,
+      committeeList: committeeList == const $CopyWithPlaceholder()
+          ? _value.committeeList
+          // ignore: cast_nullable_to_non_nullable
+          : committeeList as List<Committee>?,
+    );
+  }
+}
+
+extension $MandatoryNewMemberStateCopyWith on MandatoryNewMemberState {
+  /// Returns a callable class that can be used as follows: `instanceOfMandatoryNewMemberState.copyWith(...)` or like so:`instanceOfMandatoryNewMemberState.copyWith.fieldName(...)`.
+  // ignore: library_private_types_in_public_api
+  _$MandatoryNewMemberStateCWProxy get copyWith =>
+      _$MandatoryNewMemberStateCWProxyImpl(this);
+}

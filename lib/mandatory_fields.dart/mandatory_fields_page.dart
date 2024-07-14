@@ -24,7 +24,6 @@ class MandatoryFieldsPage extends StatelessWidget {
     "Co-head",
     "Member",
     "Extended Member",
-    "Department Head"
   ];
 
   final emailController = TextEditingController();
@@ -223,7 +222,7 @@ class MandatoryFieldsPage extends StatelessWidget {
               if (state.isStudent) {
                 return const StudentHome();
               } else {
-                return const CommitteePage();
+                return CommitteePage();
               }
             }
 

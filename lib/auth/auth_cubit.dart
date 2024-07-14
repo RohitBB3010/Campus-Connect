@@ -87,7 +87,7 @@ class AuthCubit extends Cubit<AuthState> {
       return false;
     } else {
       List<CommitteeMember>? members =
-          Committee.fromJson(document.data()!).member;
+          Committee.fromJson(document.data()!).members;
 
       if (members == null) {
         return false;

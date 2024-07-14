@@ -11,7 +11,7 @@ Committee _$CommitteeFromJson(Map<String, dynamic> json) => Committee(
       code: json['code'] as String?,
       logo: json['logo'] as String?,
       password: json['password'] as String?,
-      member: (json['member'] as List<dynamic>?)
+      members: (json['members'] as List<dynamic>?)
           ?.map((e) => CommitteeMember.fromJson(e as Map<String, dynamic>))
           .toList(),
       events: (json['events'] as List<dynamic>?)
@@ -27,7 +27,7 @@ Map<String, dynamic> _$CommitteeToJson(Committee instance) => <String, dynamic>{
       'code': instance.code,
       'logo': instance.logo,
       'password': instance.password,
-      'member': instance.member,
+      'members': instance.members,
       'events': instance.events,
       'announcements': instance.announcements,
     };

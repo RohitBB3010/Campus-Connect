@@ -45,4 +45,6 @@ class MandatoryConsts {
   String selectCommittees = "Select Committees";
   String registerButton = "Register";
   String fillFields = "Please fill all fields";
+  String selectRole =
+      "Seems like you are new in the committee!! Please select your role first";
 }
